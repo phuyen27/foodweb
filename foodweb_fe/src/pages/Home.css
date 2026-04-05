@@ -1,0 +1,251 @@
+
+.home-container {
+  min-height: calc(100vh - 80px); /* 80px từ Navbar */
+  background-color: var(--creamy-white);
+  padding: 2rem;
+  font-family: 'Pacifico', cursive;
+  position: relative;
+}
+
+/* Nút demo - bạn có thể xoá sau khi gắn Redux/Auth thật */
+.toggle-auth-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--text-dark);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 0.9rem;
+}
+.toggle-auth-btn:hover {
+  background: #555;
+}
+
+/* --- UI Gần Như Cho Khách Chạm Mới (Guest UI) --- */
+.guest-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 70vh;
+  gap: 2rem;
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  color: var(--text-dark);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.text-orange {
+  color: var(--primary-orange);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--primary-orange);
+  color: white;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-orange);
+  border: 2px solid var(--primary-orange);
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-orange);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.hero-image-placeholder {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hiệu ứng nổi bật cho hình ảnh thức ăn trang chủ */
+.food-blob {
+  background: radial-gradient(circle, #FFE4CC 0%, rgba(253,251,247,0) 70%);
+  width: 450px;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 50%;
+  animation: float 4s ease-in-out infinite;
+}
+
+.food-icon {
+  font-size: 4rem;
+  filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+}
+
+.food-icon:nth-child(1) { transform: translateY(-20px); }
+.food-icon:nth-child(3) { transform: translateY(20px); }
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* --- UI Cho User Đã Đăng Nhập --- */
+.user-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.welcome-text {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.dashboard-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background-color: var(--bg-card);
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid var(--primary-orange);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px -5px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.card p {
+  color: var(--text-light);
+  margin-bottom: 2rem;
+  flex-grow: 1;
+  line-height: 1.5;
+}
+
+.btn-primary-sm {
+  display: inline-block;
+  background-color: var(--primary-orange);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+.btn-primary-sm:hover {
+  background-color: var(--primary-orange-hover);
+}
+
+.btn-secondary-sm {
+  display: inline-block;
+  background-color: #f3f4f6;
+  color: var(--text-dark);
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary-sm:hover {
+   background-color: #e5e7eb;
+}
+
+/* Reponsive */
+@media (max-width: 960px) {
+  .guest-hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    justify-content: center;
+    padding-top: 2rem;
+  }
+  
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .food-blob {
+    width: 300px;
+    height: 300px;
+  }
+
+  .food-icon {
+    font-size: 3rem;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

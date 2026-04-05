@@ -1,5 +1,6 @@
 package com.example.foodweb_be.service;
 
+import com.example.foodweb_be.dto.AuthResponse;
 import com.example.foodweb_be.dto.LoginRequest;
 import com.example.foodweb_be.dto.RegisterRequest;
 import com.example.foodweb_be.entity.User;
@@ -9,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -16,7 +20,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    public String register(RegisterRequest request) {
+    public AuthResponse register(RegisterRequest request) {
         if(userRepository.findByEmail(request.getEmail()).isPresent()){
             throw new RuntimeException("Email already exists");
         }
@@ -24,20 +28,35 @@ public class AuthService {
         User user = new User();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
+
+        String defaultAvt = "https://res.cloudinary.com/duunwe78n/image/upload/v1743732802/enhsc8lzswn1wzlwy6n7.jpg";
+
+        user.setAvatarUrl(
+                Optional.ofNullable(request.getAvatarUrl())
+                        .filter(s->!s.isEmpty())
+                        .orElse(defaultAvt)
+        );
+        user.setCreateAt(LocalDateTime.now());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
 
-        return "Register Success";
+        return AuthResponse.builder()
+                .token(jwtUtil.generateToken(user.getEmail()))
+                .user(user)
+                .build();
     }
 
-    public String login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())){
             throw new RuntimeException("Wrong password");
         }
 
-        return jwtUtil.generateToken(user.getEmail());
+        return AuthResponse.builder()
+                .token(jwtUtil.generateToken(user.getEmail()))
+                .user(user)
+                .build();
     }
 }

@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class RegisterRequest {
@@ -18,4 +21,8 @@ public class RegisterRequest {
 
     @Size(min = 6)
     private String password;
+
+    private String avatarUrl;
+
+    private LocalDateTime createAt;
 }

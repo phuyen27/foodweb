@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -21,5 +22,5 @@ public class User {
     private String email;
     private String password;
     private String avatarUrl;
-    private Timestamp createAt;
+    private LocalDateTime createAt;
 }
