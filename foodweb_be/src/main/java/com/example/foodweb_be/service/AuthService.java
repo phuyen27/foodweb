@@ -1,8 +1,6 @@
 package com.example.foodweb_be.service;
 
-import com.example.foodweb_be.dto.AuthResponse;
-import com.example.foodweb_be.dto.LoginRequest;
-import com.example.foodweb_be.dto.RegisterRequest;
+import com.example.foodweb_be.dto.*;
 import com.example.foodweb_be.entity.User;
 import com.example.foodweb_be.respository.UserRepository;
 import com.example.foodweb_be.util.JwtUtil;
@@ -20,7 +18,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    public AuthResponse register(RegisterRequest request) {
+    public User register(RegisterRequest request) {
         if(userRepository.findByEmail(request.getEmail()).isPresent()){
             throw new RuntimeException("Email already exists");
         }
@@ -41,10 +39,7 @@ public class AuthService {
 
         userRepository.save(user);
 
-        return AuthResponse.builder()
-                .token(jwtUtil.generateToken(user.getEmail()))
-                .user(user)
-                .build();
+        return user;
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -56,6 +51,45 @@ public class AuthService {
 
         return AuthResponse.builder()
                 .token(jwtUtil.generateToken(user.getEmail()))
+                .user(user)
+                .build();
+    }
+
+    public User updateProfile(
+            UpdateAuthRequest request, String email
+    ) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if(request.getName() != null && !request.getName().isEmpty()){
+            user.setName(request.getName());
+        }
+
+        if(request.getAvatarUrl() != null && !request.getAvatarUrl().isEmpty()){
+            user.setAvatarUrl(request.getAvatarUrl());
+        }
+
+
+        userRepository.save(user);
+
+        return user;
+    }
+
+    public AuthResponse changePassword(ChangePasswordRequest request, String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()->new RuntimeException("User not found"));
+
+        if(!passwordEncoder.matches(request.getOldPassword(), user.getPassword())){
+            throw new RuntimeException("Old password doesn't match");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        userRepository.save(user);
+        String newToken = jwtUtil.generateToken(user.getEmail());
+
+        return AuthResponse.builder()
+                .token(newToken)
                 .user(user)
                 .build();
     }

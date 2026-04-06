@@ -5,18 +5,29 @@ import './Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useSelector((state) => state.auth); 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const { user } = useSelector((state) => state.auth);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleLogout = () => {
+    console.log("Logout here 😄");
+    
   };
+
+  
+  const getNavClass = ({ isActive }) => isActive ? "nav-links active" : "nav-links";
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
+        {/* Logo */}
         <NavLink to="/" className="navbar-logo">
           Food<span className="text-orange">Web</span>
         </NavLink>
 
+        {/* Hamburger menu */}
         <div className="menu-icon" onClick={toggleMenu}>
           <div className={`hamburger ${isOpen ? 'active' : ''}`}>
             <span></span>
@@ -25,42 +36,89 @@ const Navbar = () => {
           </div>
         </div>
 
+        {/* Nav menu */}
         <ul className={`nav-menu ${isOpen ? 'active' : ''}`}>
           <li className="nav-item">
-            <NavLink to="/" className="nav-links" onClick={toggleMenu}>
-             Home
-            </NavLink>
+            <NavLink 
+  to="/" 
+  end 
+  className={({ isActive }) => "nav-links" + (isActive ? " active" : "")} 
+  onClick={toggleMenu}
+>
+  Home
+</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/menu" className="nav-links" onClick={toggleMenu}>
+            <NavLink to="/menu" className={getNavClass} onClick={toggleMenu}>
               Menu
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/about" className="nav-links" onClick={toggleMenu}>
+            <NavLink to="/about" className={getNavClass} onClick={toggleMenu}>
               About
             </NavLink>
           </li>
-          
-        </ul>
-       <div className="navbar-actions">
-          {user ? (
-  <div className="user-info">
-    <span className="user-name">{user?.name || "User"}</span>
-    <img
-      src={user?.avatarUrl || "/default-avatar.png"}
-      alt="avatar"
-      className="avatar"
-    />
-  </div>
-) : (
-          <NavLink to="/login" className="btn-login-desktop">
-            Login
-          </NavLink>
-        )}
 
+          {/* Mobile user or login */}
+          {user ? (
+            <li className="nav-item mobile-user">
+              <div className="mobile-user-info">
+                <img
+                  src={user?.avatarUrl || "/default-avatar.png"}
+                  alt="avatar"
+                  className="avatar mobile-avatar"
+                />
+                <span>{user?.name || "User"}</span>
+              </div>
+              <NavLink to="/profile" className={getNavClass} onClick={toggleMenu}>
+                Your Profile
+              </NavLink>
+              <div className="nav-links logout" onClick={() => { handleLogout(); toggleMenu(); }}>
+                Logout
+              </div>
+            </li>
+          ) : (
+            <li className="nav-item mobile-login">
+              <NavLink to="/login" className={getNavClass} onClick={toggleMenu}>
+                Login
+              </NavLink>
+            </li>
+          )}
+        </ul>
+
+        {/* Desktop user/login */}
+        <div className="navbar-actions">
+          {user ? (
+            <div
+              className="user-info"
+              onMouseEnter={() => setShowDropdown(true)}
+              onMouseLeave={() => setShowDropdown(false)}
+            >
+              <span className="user-name">{user?.name || "User"}</span>
+              <img
+                src={user?.avatarUrl || "/default-avatar.png"}
+                alt="avatar"
+                className="avatar"
+              />
+
+              {showDropdown && (
+                <div className="dropdown-menu">
+                  <NavLink to="/profile" className="dropdown-item">
+                    Your Profile
+                  </NavLink>
+                  <div className="dropdown-item" onClick={handleLogout}>
+                    Logout
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <NavLink to="/login" className="btn-login-desktop">
+              Login
+            </NavLink>
+          )}
         </div>
-</div>
+      </div>
     </nav>
   );
 };

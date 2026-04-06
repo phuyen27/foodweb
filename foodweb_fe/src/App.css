@@ -6,3 +6,21 @@
   --text-light: #666666;
   --bg-card: #FFFFFF;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #F97316;
+  border-radius: 10px;
+}
