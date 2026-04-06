@@ -1,17 +1,28 @@
-// src/App.jsx
+
 import React from "react";
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import RegisterPage from "./features/auth/pages/RegisterPage.jsx";
 import LoginPage from "./features/auth/pages/LoginPage.jsx";
 import Home from "./pages/Home.jsx";
+import ProfilePage from "./features/auth/pages/ProfilePage.jsx";
+import MainLayout from "./pages/MainLayout.jsx";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* redirect */}
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home />} />
+
+       
+        <Route element={<MainLayout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Route>
+
+        
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>

@@ -11,12 +11,13 @@ import java.util.Date;
 public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
-
+    private static final long JWT_EXPIRATION =
+            1000 * 60 * 60 * 24 * 7;
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis()+86400))
+                .setExpiration(new Date(System.currentTimeMillis()+ JWT_EXPIRATION))
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }

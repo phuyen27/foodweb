@@ -6,8 +6,6 @@ import './Home.css';
 const Home = () => {
   return (
     <>
-      <Navbar />
-
       <div className="home-container">
         <div className="guest-hero"> 
           <div className="hero-content">

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
-import Navbar from '../../../components/Navbar';
+import PasswordInput from '../../../components/PasswordInput';
 import { useDispatch } from "react-redux";
 import { loginUser } from "../authSlice";
 import './LoginForm.css';
@@ -51,9 +51,6 @@ const LoginForm = () => {
 
   return (
     <>
-     
-      <Navbar />
-      
       <div className="login-container">
         <div className="login-card">
           <div className="login-header">
@@ -76,17 +73,13 @@ const LoginForm = () => {
               {errors.email && <span className="error-message">{errors.email.message}</span>}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                className={`form-input ${errors.password ? 'input-error' : ''}`}
-                {...register('password')}
-              />
-              {errors.password && <span className="error-message">{errors.password.message}</span>}
-            </div>
+          <PasswordInput
+  label="Password"
+  name="password"
+  placeholder="Enter password"
+  register={register}
+  error={errors.password?.message}
+/>
 
             <div className="form-options">
               <div className="remember-me">

@@ -10,6 +10,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+ 
+}
+
+body {
+   background: var(--creamy-white);
 }
 
 html {
@@ -23,4 +28,10 @@ html {
 ::-webkit-scrollbar-thumb {
   background: #F97316;
   border-radius: 10px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 16px 24px;
 }

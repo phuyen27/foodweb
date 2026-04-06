@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
-import Navbar from '../../../components/Navbar';
+import PasswordInput from '../../../components/PasswordInput';
 import { useDispatch } from 'react-redux';
 import {loginUser, registerUser} from '../authSlice';
-import './LoginForm.css'; 
+import { uploadToCloudinary } from '../../../utils/cloudinary';
+import './LoginForm.css';
 
 const schema = yup.object().shape({
   name: yup.string().required('Full name is required'),
@@ -75,37 +76,8 @@ const RegisterForm = () => {
     }
   };
 
-
- const uploadToCloudinary = async (file) => {
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append(
-    'upload_preset',
-    import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-  );
-
-  const res = await fetch(
-    `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
-    {
-      method: 'POST',
-      body: formData,
-    }
-  );
-
-  const data = await res.json();
-  console.log("Cloudinary response:", data);
-
-  if (!res.ok) {
-    throw new Error(data.error?.message || 'Upload failed');
-  }
-
-  return data.secure_url;
-};
-
   return (
-    <>
-      <Navbar />
-      
+    <>    
       <div className="login-container">
         <div className="login-card">
           <div className="login-header">
@@ -140,29 +112,23 @@ const RegisterForm = () => {
               {errors.email && <span className="error-message">{errors.email.message}</span>}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Create a password"
-                className={`form-input ${errors.password ? 'input-error' : ''}`}
-                {...register('password')}
-              />
-              {errors.password && <span className="error-message">{errors.password.message}</span>}
-            </div>
+           <PasswordInput
+              label="Password"
+              name="password"
+              placeholder="Enter your password"
+              register={register}
+              error={errors.password}
+            />
 
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                id="confirmPassword"
-                type="password"
-                placeholder="Confirm your password"
-                className={`form-input ${errors.confirmPassword ? 'input-error' : ''}`}
-                {...register('confirmPassword')}
-              />
-              {errors.confirmPassword && <span className="error-message">{errors.confirmPassword.message}</span>}
-            </div>
+            <PasswordInput
+              label="Confirm Password"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              register={register}
+              error={errors.confirmPassword}
+            />
+
+           
 
             <div className="form-group">
               <label htmlFor="avatar">Avatar</label>

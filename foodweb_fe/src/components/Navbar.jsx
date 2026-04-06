@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch  } from "react-redux";
+import {logout} from "../features/auth/authSlice";
 import './Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const dispatch = useDispatch();
+
+
   const { user } = useSelector((state) => state.auth);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
-    console.log("Logout here 😄");
-    
+    dispatch(logout());
   };
 
   

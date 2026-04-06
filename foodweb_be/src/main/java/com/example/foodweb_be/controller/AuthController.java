@@ -47,10 +47,14 @@ public class AuthController {
     }
 
     @PutMapping("/change-password")
-    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest
-    ,Principal principal) {
+    public ResponseEntity<?> changePassword(
+            @Valid @RequestBody ChangePasswordRequest request,
+            Principal principal
+    ) {
         String email = principal.getName();
-        authService.changePassword(changePasswordRequest,email);
-        return ResponseEntity.ok(authService.changePassword(changePasswordRequest,email));
+
+        return ResponseEntity.ok(
+                authService.changePassword(request, email)
+        );
     }
 }
