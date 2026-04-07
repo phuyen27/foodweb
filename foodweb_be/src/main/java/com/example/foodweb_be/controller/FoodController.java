@@ -36,7 +36,7 @@ public class FoodController {
     }
 
 
-    @GetMapping("/category")
+    @GetMapping("/by-category")
     public List<Food> getFoodsByCategory(
             @RequestParam String category) {
 

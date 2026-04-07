@@ -57,8 +57,8 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/about" className={getNavClass} onClick={toggleMenu}>
-              About
+            <NavLink to="/foods" className={getNavClass} onClick={toggleMenu}>
+              Food
             </NavLink>
           </li>
 
