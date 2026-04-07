@@ -11,6 +11,11 @@ import FoodCard from "../components/FoodCard";
 import SearchBar from "../components/SearchBar";
 import CategoryFilter from "../components/CategoryFilter";
 
+import {
+  FaUtensils,
+  FaSpinner
+} from "react-icons/fa";
+
 import "./FoodListPage.css";
 
 const FoodListPage = () => {
@@ -66,27 +71,53 @@ const FoodListPage = () => {
   return (
     <div className="container">
 
+      {/* TITLE */}
+
       <h1 className="title">
-        🍽️ Food List
+
+        <FaUtensils className="title-icon" />
+
+        Food List
+
       </h1>
+
+      {/* SEARCH */}
 
       <SearchBar
         onSearch={handleSearch}
       />
 
+      {/* CATEGORY */}
+
       <CategoryFilter
         onSelectCategory={handleCategory}
       />
 
+      {/* LOADING */}
+
       {status === "loading" && (
-        <p>Loading...</p>
+
+        <p className="loading">
+
+          <FaSpinner className="spin" />
+
+          Loading foods...
+
+        </p>
+
       )}
 
+      {/* ERROR */}
+
       {error && (
+
         <p className="error">
           {error}
         </p>
+
       )}
+
+      {/* GRID */}
 
       <div className="food-grid">
 

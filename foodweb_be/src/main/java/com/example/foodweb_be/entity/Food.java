@@ -14,16 +14,34 @@ public class Food {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //Info
+    @Column(nullable = false)
     private String name;
 
+    @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    //Nutrition and cooking
     private Integer calories;
 
+    @Column(name = "cooking_time")
     private Integer cookingTime;
 
+    private Integer servings;
+
+    //Level
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
+    private Double rating;
+
+    //Category
     private String category;
+
+    //Cooking steps
+    @Column(columnDefinition = "TEXT")
+    private String steps;
 }

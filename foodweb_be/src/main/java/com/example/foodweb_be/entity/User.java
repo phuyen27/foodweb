@@ -17,12 +17,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+
     @JsonIgnore
+    @Column(nullable = false)
     private String password;
+
+    @Column(name = "avatar_url")
     private String avatarUrl;
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 }

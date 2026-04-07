@@ -1,82 +1,484 @@
-.container {
-  padding: 20px;
+/* ===== ROOT COLORS ===== */
+
+:root {
+  --primary-orange: #F97316;
+  --primary-orange-hover: #EA580C;
+  --creamy-white: #FDFBF7;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --bg-card: #FFFFFF;
 }
+
+/* ===== BODY ===== */
+
+body {
+  background-color: var(--creamy-white);
+
+  /* food pattern nhẹ */
+
+  background-image:
+    radial-gradient(
+      rgba(249,115,22,0.06) 1px,
+      transparent 1px
+    );
+
+  background-size: 30px 30px;
+
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+
+  max-width: 1200px;
+
+  margin: auto;
+
+  padding: 30px 20px;
+
+}
+
+/* ===== TITLE ===== */
 
 .title {
-  text-align: center;
-}
 
-.search-box {
-  margin: 20px 0;
-}
-
-.search-box input {
-  width: 100%;
-  padding: 10px;
-
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.category-box {
   display: flex;
-  gap: 10px;
 
-  margin-bottom: 20px;
+  align-items: center;
 
-  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 12px;
+
+  font-size: 36px;
+
+  font-weight: 700;
+
+  color: var(--primary-orange);
+
+  margin-bottom: 25px;
+
+  text-shadow: 
+    2px 2px 8px rgba(0,0,0,0.08);
+
 }
 
-.category-box button {
-  padding: 8px 14px;
+/* icon */
 
-  border-radius: 20px;
+.title-icon {
 
-  border: none;
+  font-size: 32px;
 
-  background: #eee;
-
-  cursor: pointer;
 }
+
+/* ===== GRID ===== */
 
 .food-grid {
+
+  margin-top: 30px;
+
   display: grid;
 
   grid-template-columns:
-    repeat(auto-fill, minmax(220px, 1fr));
+    repeat(auto-fill, minmax(240px, 1fr));
 
-  gap: 20px;
+  gap: 25px;
+
 }
 
+/* ===== LOADING ===== */
+
+.loading {
+
+  text-align: center;
+
+  font-size: 18px;
+
+  color: var(--primary-orange);
+
+  margin-top: 20px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+/* spinner animation */
+
+.spin {
+
+  animation: spin 1s linear infinite;
+
+  font-size: 18px;
+
+}
+
+/* spin keyframe */
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+/* ===== ERROR ===== */
+
+.error {
+
+  color: red;
+
+  text-align: center;
+
+  margin-top: 15px;
+
+  font-weight: 500;
+
+}
+
+/* ===== FOOD CARD ===== */
+
 .food-card {
+
   background: white;
 
-  border-radius: 12px;
+  border-radius: 18px;
 
-  padding: 12px;
+  padding: 18px;
 
-  box-shadow:
-    0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
 
   cursor: pointer;
 
-  transition: 0.2s;
+  position: relative;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.06);
+
 }
+
+/* hover effect */
 
 .food-card:hover {
-  transform: translateY(-4px);
+
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 15px 30px rgba(0,0,0,0.12);
+
 }
 
-.food-card img {
+/* ===== IMAGE ===== */
+
+.food-image {
+
   width: 100%;
 
   height: 150px;
 
-  object-fit: cover;
+  object-fit: contain; /* cực hợp PNG */
 
-  border-radius: 8px;
+  margin-bottom: 12px;
+
+  transition: transform 0.3s ease;
+
 }
 
-.error {
-  color: red;
+.food-card:hover .food-image {
+
+  transform: scale(1.08);
+
+}
+
+/* ===== NAME ===== */
+
+.food-name {
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  color: #333;
+
+  margin-bottom: 10px;
+
+}
+
+/* ===== INFO ===== */
+
+.food-info {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  font-size: 14px;
+
+  color: #666;
+
+}
+
+/* icon */
+
+.icon {
+
+  margin-right: 6px;
+
+  vertical-align: middle;
+
+}
+
+.icon.fire {
+
+  color: #F97316;
+
+}
+
+/* ===== DIFFICULTY BADGE ===== */
+
+.difficulty-badge {
+
+  position: absolute;
+
+  top: 12px;
+
+  right: 12px;
+
+  padding: 4px 10px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  color: white;
+
+}
+
+/* easy */
+
+.difficulty-badge.easy {
+
+  background: #22c55e;
+
+}
+
+/* medium */
+
+.difficulty-badge.medium {
+
+  background: #f59e0b;
+
+}
+
+/* hard */
+
+.difficulty-badge.hard {
+
+  background: #ef4444;
+
+}
+
+/* CATEGORY */
+
+/* ===== CATEGORY BOX ===== */
+
+.category-box {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 20px;
+
+}
+
+/* ===== BUTTON ===== */
+
+.category-btn {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 10px 16px;
+
+  border-radius: 999px;
+
+  border: 1px solid #eee;
+
+  background: white;
+
+  color: #555;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+}
+
+/* hover */
+
+.category-btn:hover {
+
+  background: #fff7ed;
+
+  color: #F97316;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.08);
+
+}
+
+/* active */
+
+.category-btn.active {
+
+  background: #F97316;
+
+  color: white;
+
+  border: none;
+
+  box-shadow:
+    0 6px 14px rgba(249,115,22,0.35);
+
+}
+
+/* icon */
+
+.category-btn svg {
+
+  font-size: 16px;
+
+}
+
+/* SEARCH BAR */
+/* ===== SEARCH BOX ===== */
+
+.search-box {
+
+  width: 100%;
+
+  max-width: 500px;
+
+  margin: 0 auto 20px auto;
+
+  position: relative;
+
+}
+
+/* ===== INPUT ===== */
+
+.search-box input {
+
+  width: 100%;
+
+  padding: 12px 40px 12px 42px;
+
+  border-radius: 999px;
+
+  border: 1px solid #eee;
+
+  font-size: 15px;
+
+  background: white;
+
+  outline: none;
+
+  transition:
+    border 0.25s ease,
+    box-shadow 0.25s ease;
+
+}
+
+/* focus effect */
+
+.search-box input:focus {
+
+  border: 1px solid #F97316;
+
+  box-shadow:
+    0 0 0 4px rgba(249,115,22,0.15);
+
+}
+
+/* ===== SEARCH ICON ===== */
+
+.search-icon {
+
+  position: absolute;
+
+  left: 14px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #aaa;
+
+  font-size: 14px;
+
+}
+
+/* ===== CLEAR ICON ===== */
+
+.clear-icon {
+
+  position: absolute;
+
+  right: 14px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #aaa;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  transition: color 0.2s ease;
+
+}
+
+.clear-icon:hover {
+
+  color: #F97316;
+
 }

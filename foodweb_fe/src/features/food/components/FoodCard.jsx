@@ -1,6 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import {
+  FaFire,
+  FaClock,
+  FaChartBar
+} from "react-icons/fa";
+
+
 const FoodCard = ({ food }) => {
 
   const navigate = useNavigate();
@@ -10,33 +17,64 @@ const FoodCard = ({ food }) => {
   };
 
   return (
+
     <div
       className="food-card"
       onClick={handleClick}
     >
 
+      {/* Difficulty badge */}
+
+      <div className={`difficulty-badge ${food.difficulty?.toLowerCase()}`}>
+        {food.difficulty}
+      </div>
+
+      {/* Food image */}
+
       <img
         src={food.imageUrl}
         alt={food.name}
+        className="food-image"
       />
 
-      <h3>
+      {/* Food name */}
+
+      <h3 className="food-name">
         {food.name}
       </h3>
 
-      <p>
-        🔥 {food.calories} kcal
-      </p>
+      {/* Info section */}
 
-      <p>
-        ⏱️ {food.cookingTime} min
-      </p>
+      <div className="food-info">
 
-      <p>
-        📊 {food.difficulty}
-      </p>
+        <p>
+
+          <FaFire className="icon fire" />
+
+          {food.calories} kcal
+
+        </p>
+
+        <p>
+
+          <FaClock className="icon" />
+
+          {food.cookingTime} min
+
+        </p>
+
+        <p>
+
+          <FaChartBar className="icon" />
+
+          {food.difficulty}
+
+        </p>
+
+      </div>
 
     </div>
+
   );
 };
 

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 
+import {
+  FaSearch,
+  FaTimes
+} from "react-icons/fa";
+
 const SearchBar = ({ onSearch }) => {
 
   const [keyword, setKeyword] = useState("");
@@ -14,17 +19,46 @@ const SearchBar = ({ onSearch }) => {
 
   };
 
+  /* Clear search */
+
+  const handleClear = () => {
+
+    setKeyword("");
+
+    onSearch("");
+
+  };
+
   return (
+
     <div className="search-box">
+
+      {/* Search icon */}
+
+      <FaSearch className="search-icon" />
+
+      {/* Input */}
 
       <input
         type="text"
-        placeholder="Search food..."
+        placeholder="Search delicious food..."
         value={keyword}
         onChange={handleChange}
       />
 
+      {/* Clear button */}
+
+      {keyword && (
+
+        <FaTimes
+          className="clear-icon"
+          onClick={handleClear}
+        />
+
+      )}
+
     </div>
+
   );
 };
 
