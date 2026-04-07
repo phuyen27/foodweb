@@ -10,9 +10,16 @@ import Cookies from "js-cookie";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async (userData) => {
-    const res = await registerApi(userData);
-    return res.data;
+  async (userData, { rejectWithValue }) => {
+    try {
+      const res = await registerApi(userData);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message ||
+        "Registration failed"
+      );
+    }
   }
 );
 
@@ -150,7 +157,8 @@ const authSlice = createSlice({
 
       .addCase(registerUser.rejected, (state, action) => {
         state.registerStatus = "failed";
-        state.registerError = action.payload || action.error.message;
+        state.registerError =
+          action.payload || action.error.message;
       })
 
       // login
@@ -166,7 +174,7 @@ const authSlice = createSlice({
 
       .addCase(loginUser.rejected, (state, action) => {
         state.loginStatus = "failed";
-        state.loginError = action.error.message;
+        state.loginError = action.payload || action.error.message;
       })
 
       // update profile

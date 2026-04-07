@@ -59,7 +59,7 @@ const PasswordInput = ({
 
       {error && (
         <p className="error-text">
-          {error}
+          {error.message || error}
         </p>
       )}
 

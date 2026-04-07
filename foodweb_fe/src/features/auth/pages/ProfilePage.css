@@ -23,12 +23,18 @@
 
 .user-info-brief {
   display: flex;
-  flex-direction: column;
+  flex-direction:column;
   align-items: center;
   padding-bottom: 24px;
   margin-bottom: 12px;
   border-bottom: 1px solid #f0f0f0;
   text-align: center;
+}
+
+.created-date {
+  color: var(--text-light, #666666);
+  font-size: 14px;
+  margin-top: 4px;
 }
 
 .avatar-placeholder {
@@ -238,7 +244,6 @@
   }
   
   .user-info-brief {
-    flex-direction: row;
     padding-bottom: 0;
     margin-bottom: 0;
     border-bottom: none;
