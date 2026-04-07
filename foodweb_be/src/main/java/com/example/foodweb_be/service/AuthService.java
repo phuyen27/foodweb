@@ -34,7 +34,7 @@ public class AuthService {
                         .filter(s->!s.isEmpty())
                         .orElse(defaultAvt)
         );
-        user.setCreateAt(LocalDateTime.now());
+        user.setCreatedAt(LocalDateTime.now());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
@@ -81,6 +81,13 @@ public class AuthService {
 
         if(!passwordEncoder.matches(request.getOldPassword(), user.getPassword())){
             throw new RuntimeException("Old password doesn't match");
+        }
+
+        if(request.getOldPassword()
+                .equals(request.getNewPassword())){
+            throw new RuntimeException(
+                    "New password must be different from old password"
+            );
         }
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));

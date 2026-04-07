@@ -37,6 +37,21 @@ const ProfilePage = () => {
 
   if (!user) return null;
 
+
+  const formatDate = (dateString) => {
+
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
+};
+
   return (
     <div className="profile-container">
       <aside className="profile-sidebar">
@@ -59,6 +74,8 @@ const ProfilePage = () => {
                 {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
             )}
+
+           
             <input 
               type="file" 
               ref={fileInputRef} 
@@ -68,6 +85,10 @@ const ProfilePage = () => {
             />
           </div>
           <h3>{user.name ||  'User'}</h3>
+
+           <p className="created-date">
+            Joined: {formatDate(user.createdAt)}
+          </p>
         </div>
         <button 
           className={`profile-tab ${activeTab === 'profile' ? 'active' : ''}`}

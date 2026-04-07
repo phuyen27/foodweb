@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile } from '../authSlice';
-
+import { updateProfile, resetProfileStatus } from '../authSlice';
+import { toast } from 'react-toastify';
 const ProfileForm = () => {
   const dispatch = useDispatch();
-  const { user, status } = useSelector((state) => state.auth);
+  const { user, profileStatus } = useSelector((state) => state.auth);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -18,6 +18,8 @@ const ProfileForm = () => {
         name: user.name || '',
         avtUrl: user.avtUrl || ''
       });
+
+      toast.success("Profile loaded successfully");
     }
   }, [user]);
 
@@ -58,9 +60,9 @@ const ProfileForm = () => {
       <button 
         type="submit" 
         className="btn-submit" 
-        disabled={status === 'loading'}
+        disabled={profileStatus === 'loading'}
       >
-        {status === 'loading' ? 'Updating...' : 'Save Changes'}
+        {profileStatus === 'loading' ? 'Updating...' : 'Save Changes'}
       </button>
     </form>
   );

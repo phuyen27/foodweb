@@ -24,5 +24,5 @@ public class RegisterRequest {
 
     private String avatarUrl;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }

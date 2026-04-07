@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changePassword } from "../authSlice";
+import { changePassword,resetPasswordStatus  } from "../authSlice";
 import PasswordInput from "../../../components/PasswordInput";
-
+import { toast } from "react-toastify";
 
 const ChangePasswordForm = () => {
 
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.auth);
+  const { passwordStatus , passwordError } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     oldPassword: "",
@@ -17,7 +17,7 @@ const ChangePasswordForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  // ✅ realtime validation
+  
   const validateField = (name, value) => {
 
     let error = "";
@@ -71,14 +71,26 @@ const ChangePasswordForm = () => {
       oldPassword: formData.oldPassword,
       newPassword: formData.newPassword
     }));
-
-    setFormData({
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: ""
-    });
-
   };
+
+  useEffect(() => {
+    if(passwordStatus  === "succeeded") {
+      toast.success("Password changed successfully!");
+
+      setFormData({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+      });
+
+      dispatch(resetPasswordStatus());
+    }
+
+    if(passwordStatus  === "failed") {
+      toast.error(passwordError || "Failed to change password");
+      dispatch(resetPasswordStatus());
+    }
+  }, [passwordStatus ]);
 
   return (
 

@@ -7,7 +7,7 @@ import PasswordInput from '../../../components/PasswordInput';
 import { useDispatch } from "react-redux";
 import { loginUser } from "../authSlice";
 import './LoginForm.css';
-
+import { toast } from "react-toastify";
 // Schema Validation using Yup
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email format').required('Email is required'),
@@ -18,6 +18,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
+  
   const dispatch = useDispatch();
   const {
     register,
@@ -37,13 +38,15 @@ const LoginForm = () => {
     
     if (loginUser.rejected.match(resultAction)) {
       setLoginError("Invalid email or password");
+      toast.error("Invalid email or password");
       return;
     }
 
-    
+    toast.success("Login successful!");
     navigate('/');
   } catch (error) {
     setLoginError("Something went wrong. Try again.");
+    toast.error("Something went wrong. Try again.");
   } finally {
     setIsLoading(false);
   }
@@ -74,12 +77,12 @@ const LoginForm = () => {
             </div>
 
           <PasswordInput
-  label="Password"
-  name="password"
-  placeholder="Enter password"
-  register={register}
-  error={errors.password?.message}
-/>
+            label="Password"
+            name="password"
+            placeholder="Enter password"
+            register={register}
+            error={errors.password?.message}
+          />
 
             <div className="form-options">
               <div className="remember-me">

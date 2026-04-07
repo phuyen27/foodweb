@@ -9,9 +9,20 @@ import Home from "./pages/Home.jsx";
 import ProfilePage from "./features/auth/pages/ProfilePage.jsx";
 import MainLayout from "./pages/MainLayout.jsx";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <BrowserRouter>
+     <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
       <Routes>
         {/* redirect */}
         <Route path="/" element={<Navigate to="/home" />} />

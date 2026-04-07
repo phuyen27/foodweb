@@ -8,12 +8,12 @@ const PasswordInput = ({
   onChange,
   placeholder,
   error,
-  register // optional (react-hook-form)
+  register
 }) => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  // nếu có register → dùng react-hook-form
+ 
   const inputProps = register
     ? register(name)
     : {

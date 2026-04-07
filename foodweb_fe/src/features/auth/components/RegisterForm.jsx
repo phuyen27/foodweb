@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import {loginUser, registerUser} from '../authSlice';
 import { uploadToCloudinary } from '../../../utils/cloudinary';
 import './LoginForm.css';
+import { toast } from "react-toastify";
 
 const schema = yup.object().shape({
   name: yup.string().required('Full name is required'),
@@ -53,6 +54,7 @@ const RegisterForm = () => {
 
      if (registerUser.rejected.match(registerResult)) {
       setRegisterError(registerResult.payload || "Registration failed");
+      toast.error("Registration failed");
       return;
     }
 
@@ -63,14 +65,17 @@ const RegisterForm = () => {
 
      if(loginUser.rejected.match(loginResult)) {
       setRegisterError("Login failed after registration. Please try logging in.");
+      toast.error("Login failed after registration. Please try logging in.");
       return;
      }
 
+     toast.success("Registration and login successful!");
      navigate('/');
 
     } catch (error) {
      console.error("ERROR:", error);
   setRegisterError(error.message || 'Registration failed');
+      toast.error("Registration failed");
     } finally {
       setIsLoading(false);
     }

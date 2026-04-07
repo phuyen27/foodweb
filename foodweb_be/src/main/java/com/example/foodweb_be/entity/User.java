@@ -24,5 +24,5 @@ public class User {
     @JsonIgnore
     private String password;
     private String avatarUrl;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }
