@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 
 import "./FoodDetailPage.css";
-
+import FavoriteButton from "../../favorite/components/FavoriteButton";
 import {
   getFoodDetail,
   clearFoodDetail
@@ -77,7 +77,7 @@ const FoodDetailPage = () => {
   return (
 
     <div className="detail-container">
-
+<FavoriteButton foodId={foodDetail.id} />
       {/* IMAGE */}
 
       <div className="image-box">
