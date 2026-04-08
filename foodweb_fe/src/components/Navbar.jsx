@@ -73,6 +73,9 @@ const Navbar = () => {
                 />
                 <span>{user?.name || "User"}</span>
               </div>
+              <NavLink to="/favorites" className={getNavClass} onClick={toggleMenu}>
+                My Favorites
+              </NavLink>
               <NavLink to="/profile" className={getNavClass} onClick={toggleMenu}>
                 Your Profile
               </NavLink>
@@ -106,6 +109,9 @@ const Navbar = () => {
 
               {showDropdown && (
                 <div className="dropdown-menu">
+                  <NavLink to="/favorites" className="dropdown-item">
+                    My Favorites
+                  </NavLink>
                   <NavLink to="/profile" className="dropdown-item">
                     Your Profile
                   </NavLink>

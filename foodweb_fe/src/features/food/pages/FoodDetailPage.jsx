@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
+import BackButton from "../../../components/BackButton";
 import {
   FaFire,
   FaClock,
@@ -21,73 +21,46 @@ import {
 } from "../foodSlide";
 
 const FoodDetailPage = () => {
-
   const { id } = useParams();
-
   const dispatch = useDispatch();
-
-  const {
-    foodDetail,
-    status,
-    error
-  } = useSelector((state) => state.food);
+  const { foodDetail, status, error  } = useSelector((state) => state.food);
 
   useEffect(() => {
-
     dispatch(getFoodDetail(id));
-
     return () => {
       dispatch(clearFoodDetail());
-    };
-
-  }, [dispatch, id]);
+    };}, [dispatch, id]);
 
   /* Loading */
-
   if (status === "loading") {
-
     return (
       <div className="loading-page">
-
         <FaSpinner className="spin" />
-
         Loading food detail...
-
       </div>
-    );
-
-  }
+    );}
 
   /* Error */
-
   if (error) {
-
     return (
       <p className="error">
         {error}
-      </p>
-    );
-
-  }
-
+      </p>);}
   if (!foodDetail) {
-    return null;
-  }
+    return null;}
 
   return (
-
     <div className="detail-container">
-<FavoriteButton foodId={foodDetail.id} />
+       <BackButton />
+      <FavoriteButton foodId={foodDetail.id} />
       {/* IMAGE */}
-
+      
       <div className="image-box">
-
         <img
           src={foodDetail.imageUrl}
           alt={foodDetail.name}
           className="detail-image"
         />
-
         {/* Difficulty Badge */}
 
         <div className={`difficulty-badge ${foodDetail.difficulty?.toLowerCase()}`}>
@@ -227,9 +200,7 @@ const FoodDetailPage = () => {
       </div>
 
     </div>
-
   );
-
 };
 
 export default FoodDetailPage;

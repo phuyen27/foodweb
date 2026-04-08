@@ -10,6 +10,7 @@ import ProfilePage from "./features/auth/pages/ProfilePage.jsx";
 import MainLayout from "./pages/MainLayout.jsx";
 import FoodListPage from "./features/food/pages/FoodListPage.jsx";
 import FoodDetailPage from "./features/food/pages/FoodDetailPage.jsx"
+import FavoritePage from "./features/favorite/pages/FavoritePage.jsx";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/foods" element={<FoodListPage />} />
           <Route path="/foods/:id" element={<FoodDetailPage />} />
+          <Route path="/favorites" element={<FavoritePage />} />
         </Route>
 
         

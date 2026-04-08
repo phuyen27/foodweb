@@ -1,0 +1,27 @@
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background: transparent;
+  border: none;
+
+  color: var(--primary-orange);
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.back-button:hover {
+  color: var(--primary-orange-hover);
+  transform: translateX(-3px);
+}
+
+/* Icon */
+.back-button svg {
+  font-size: 0.9rem;
+}
