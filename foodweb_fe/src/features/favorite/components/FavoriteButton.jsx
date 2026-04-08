@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {
   addFavorite,
   removeFavorite
-} from "../favoriteSlide";
+} from "../favoriteSlice";
 
 function FavoriteButton({ foodId }) {
 

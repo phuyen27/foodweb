@@ -11,6 +11,7 @@ import MainLayout from "./pages/MainLayout.jsx";
 import FoodListPage from "./features/food/pages/FoodListPage.jsx";
 import FoodDetailPage from "./features/food/pages/FoodDetailPage.jsx"
 import FavoritePage from "./features/favorite/pages/FavoritePage.jsx";
+import MealPlanPage from "./features/meal/pages/MealPlanPage.jsx";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,6 +34,7 @@ function App() {
        
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/meal-plan" element={<MealPlanPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/foods" element={<FoodListPage />} />
           <Route path="/foods/:id" element={<FoodDetailPage />} />

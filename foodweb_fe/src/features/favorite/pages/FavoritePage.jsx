@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavorites } from "../favoriteSlide";
+import { getFavorites } from "../favoriteSlice";
 import FoodCard from "../../food/components/FoodCard";
 import "./FavoritePage.css";
 import { FaHeart, FaArrowLeft } from "react-icons/fa";

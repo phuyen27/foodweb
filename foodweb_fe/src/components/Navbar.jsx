@@ -52,8 +52,8 @@ const Navbar = () => {
 </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/menu" className={getNavClass} onClick={toggleMenu}>
-              Menu
+            <NavLink to="/meal-plan" className={getNavClass} onClick={toggleMenu}>
+              Meal Plan
             </NavLink>
           </li>
           <li className="nav-item">

@@ -18,7 +18,7 @@ import FavoriteButton from "../../favorite/components/FavoriteButton";
 import {
   getFoodDetail,
   clearFoodDetail
-} from "../foodSlide";
+} from "../foodSlice";
 
 const FoodDetailPage = () => {
   const { id } = useParams();

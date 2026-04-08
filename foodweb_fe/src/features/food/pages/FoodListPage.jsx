@@ -5,7 +5,7 @@ import {
   getFoodList,
   searchFood,
   getFoodCategory
-} from "../foodSlide";
+} from "../foodSlice";
 
 import FoodCard from "../components/FoodCard";
 import SearchBar from "../components/SearchBar";

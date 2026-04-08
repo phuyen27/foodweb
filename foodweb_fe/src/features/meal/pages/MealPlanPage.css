@@ -1,0 +1,41 @@
+.meal-page {
+  padding: 24px;
+}
+
+.meal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.meal-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.meal-column {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  min-height: 300px;
+}
+
+.meal-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.meal-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.add-meal-btn {
+  margin-top: 10px;
+  width: 100%;
+}
