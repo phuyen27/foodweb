@@ -8,11 +8,12 @@ import {
 } from "react-icons/fa";
 
 
-const FoodCard = ({ food }) => {
+const FoodCard = ({ food ,disabledClick = false}) => {
 
   const navigate = useNavigate();
 
   const handleClick = () => {
+    if (disabledClick) return;
     navigate(`/foods/${food.id}`);
   };
 
@@ -21,6 +22,11 @@ const FoodCard = ({ food }) => {
     <div
       className="food-card"
       onClick={handleClick}
+      style={{
+        cursor: disabledClick
+          ? "pointer"
+          : "pointer"
+      }}
     >
 
       {/* Difficulty badge */}

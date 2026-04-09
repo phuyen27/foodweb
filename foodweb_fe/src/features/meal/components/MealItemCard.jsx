@@ -36,29 +36,30 @@ const MealItemCard = ({
   return (
 
     <div className="meal-item">
-
       <img
         src={item.imageUrl}
         alt={item.foodName}
       />
 
-      <p>
-        {item.foodName}
-      </p>
-
-      {item.note && (
+      <div className="meal-item-info">
+        <p>{item.foodName}</p>
         <small>
-          {item.note}
+          {item.calories ? `${item.calories} kcal` : "No nutrition info"}
         </small>
-      )}
+        {item.note && (
+          <small className="item-note">
+            📝 {item.note}
+          </small>
+        )}
+      </div>
 
       <button
         className="delete-btn"
         onClick={handleDelete}
+        title="Remove from plan"
       >
-        ❌
+        ✕
       </button>
-
     </div>
 
   );

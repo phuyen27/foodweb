@@ -35,13 +35,6 @@ const ProfilePage = () => {
     useState(false);
 
 
-  useEffect(() => {
-
-    if (!user) {
-      navigate('/');
-    }
-
-  }, [user, navigate]);
 
   useEffect(() => {
 
@@ -105,7 +98,6 @@ const ProfilePage = () => {
     }
 
   };
-  if (!user) return null;
   const formatDate = (dateString) => {
 
     if (!dateString) return "";

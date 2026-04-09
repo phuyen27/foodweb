@@ -40,11 +40,9 @@ const MealColumn = ({
 
       <button
         className="add-meal-btn"
-        onClick={() =>
-          setOpenModal(true)
-        }
+        onClick={() => setOpenModal(true)}
       >
-        + Add
+        <span>+</span> Add Food
       </button>
 
 

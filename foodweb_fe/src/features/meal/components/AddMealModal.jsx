@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  getFoodList
+  getFoodList,
+  searchFood,
+  getFoodCategory
 } from "../../food/foodSlice";
 
 import FoodCard from "../../food/components/FoodCard";
+import SearchBar from "../../food/components/SearchBar";
+import CategoryFilter from "../../food/components/CategoryFilter";
 
 import {
   addMealItem,
@@ -20,92 +25,252 @@ const AddMealModal = ({
 
   const dispatch = useDispatch();
 
-  const { foodList } =
-    useSelector(state => state.food);
+  const {
+    foodList,
+    searchResults,
+    categoryResults,
+    status
+  } = useSelector(state => state.food);
 
+  const [useSearch, setUseSearch] = useState(false);
+  const [useCategory, setUseCategory] = useState(false);
+
+  const [selectedFood, setSelectedFood] = useState(null);
+  const [note, setNote] = useState("");
 
   useEffect(() => {
-
-    dispatch(
-      getFoodList()
-    );
-
+    dispatch(getFoodList());
   }, [dispatch]);
 
+  // SEARCH
+  const handleSearch = (keyword) => {
 
-  // ======================
-  // ADD FOOD
-  // ======================
+    if (keyword.trim()) {
 
-  const handleAddFood = (
-    foodId
-  ) => {
+      setUseSearch(true);
+      setUseCategory(false);
 
-    const data = {
+      dispatch(searchFood(keyword));
 
-      foodId,
-      mealType,
-      date
+    } else {
 
-    };
+      setUseSearch(false);
 
-    dispatch(
-      addMealItem(data)
-    ).then(() => {
-
-      dispatch(
-        getMealPlan(date)
-      );
-
-      onClose();
-
-    });
+    }
 
   };
 
+  // CATEGORY
+  const handleCategorySelect = (category) => {
 
-  return (
+    if (category) {
 
-    <div className="modal">
+      setUseCategory(true);
+      setUseSearch(false);
 
-      <div className="modal-content">
+      dispatch(getFoodCategory(category));
 
-        <h3>
-          Select Food
-        </h3>
+    } else {
 
-        <div className="food-grid">
+      setUseCategory(false);
 
-          {foodList.map(food => (
+    }
 
-            <div
-              key={food.id}
-              onClick={() =>
-                handleAddFood(
-                  food.id
-                )
-              }
-            >
+  };
 
-              <FoodCard
-                food={food}
-              />
+  // ADD FOOD
+  const handleAddFood = () => {
 
-            </div>
+    if (!selectedFood) return;
 
-          ))}
+    const data = {
+      foodId: selectedFood.id,
+      mealType,
+      date,
+      note
+    };
+
+    dispatch(addMealItem(data))
+      .unwrap()
+      .then(() => {
+
+        dispatch(getMealPlan(date));
+
+        setSelectedFood(null);
+        setNote("");
+
+        onClose();
+
+      });
+
+  };
+
+  // DISPLAY LIST
+  let displayList = foodList;
+
+  if (useSearch) displayList = searchResults;
+  else if (useCategory) displayList = categoryResults;
+
+  return ReactDOM.createPortal(
+
+    <div
+      className="modal-overlay"
+      onClick={onClose}
+    >
+
+      {/* MAIN MODAL */}
+      <div
+        className="modal-container"
+        onClick={(e) => e.stopPropagation()}
+      >
+
+        {/* HEADER */}
+        <div className="modal-header">
+
+          <h3>
+            Add to {mealType}
+          </h3>
+
+          <div className="modal-search-section">
+
+            <SearchBar onSearch={handleSearch} />
+
+            <CategoryFilter
+              onSelectCategory={handleCategorySelect}
+            />
+
+          </div>
 
         </div>
 
-        <button
-          onClick={onClose}
-        >
-          Close
-        </button>
+        {/* BODY */}
+        <div className="modal-body">
+
+          {status ? (
+
+            <div className="loading-state">
+              Searching delicious meals...
+            </div>
+
+          ) : displayList.length > 0 ? (
+
+            <div className="food-grid">
+
+              {displayList.map(food => (
+
+                <div
+                  key={food.id}
+                  className="food-item-wrapper"
+                  onClick={() =>
+                    setSelectedFood(food)
+                  }
+                >
+
+                  <FoodCard
+                    food={food}
+                    disabledClick={true}
+                  />
+
+                </div>
+
+              ))}
+
+            </div>
+
+          ) : (
+
+            <div className="no-results">
+
+              <p>
+                No food items found.
+                Try another search! 🥗
+              </p>
+
+            </div>
+
+          )}
+
+        </div>
+
+        {/* FOOTER */}
+        <div className="modal-footer">
+
+          <button
+            className="close-modal-btn"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+
+        </div>
 
       </div>
 
-    </div>
+      {/* MINI NOTE MODAL */}
+      {selectedFood && (
+
+        <div
+          className="note-mini-overlay"
+          onClick={() => {
+
+            setSelectedFood(null);
+            setNote("");
+
+          }}
+        >
+
+          <div
+            className="note-mini-modal"
+            onClick={(e) =>
+              e.stopPropagation()
+            }
+          >
+
+            <h4>
+              Add "{selectedFood.name}"
+            </h4>
+
+            <textarea
+              placeholder="Add note (optional)..."
+              value={note}
+              onChange={(e) =>
+                setNote(e.target.value)
+              }
+              className="note-textarea"
+            />
+
+            <div className="note-actions">
+
+              <button
+                className="cancel-btn"
+                onClick={() => {
+
+                  setSelectedFood(null);
+                  setNote("");
+
+                }}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="confirm-btn"
+                onClick={handleAddFood}
+              >
+                Add to {mealType}
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
+
+    </div>,
+
+    document.body
 
   );
 

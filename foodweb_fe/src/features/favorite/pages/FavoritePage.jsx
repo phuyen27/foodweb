@@ -22,17 +22,6 @@ const FavoritePage = () => {
     navigate(-1);
   };
 
-  if (!user) {
-    return (
-      <div className="favorite-empty-state">
-        <FaHeart className="empty-icon" />
-        <h2>Please login to see your favorites</h2>
-        <button className="back-btn" onClick={() => navigate("/login")}>
-          Go to Login
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className="favorite-page">

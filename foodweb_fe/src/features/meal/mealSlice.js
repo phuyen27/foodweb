@@ -81,9 +81,7 @@ const mealSlice = createSlice({
         })
         .addCase(addMealItem.fulfilled, (state, action) => {
             state.loading = false;
-            if (state.mealPlan) {
-                state.mealPlan.items.push(action.payload);
-            }   
+           
         })
         .addCase(addMealItem.rejected, (state, action) => {
             state.loading = false;

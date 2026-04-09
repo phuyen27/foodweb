@@ -18,103 +18,68 @@ const MealPlanPage = () => {
 
   const [selectedDate, setSelectedDate] =
     useState(() => {
-
       return new Date()
         .toISOString()
         .split("T")[0];
-
     });
 
-
-  // ======================
-  // LOAD MEAL PLAN
-  // ======================
-
   useEffect(() => {
-
     dispatch(
       getMealPlan(selectedDate)
     );
-
-  }, [dispatch, selectedDate]);
-
-
-  // ======================
-  // HANDLE DATE CHANGE
-  // ======================
+  }, [dispatch, selectedDate]); 
 
   const handleDateChange = (e) => {
-
     setSelectedDate(
       e.target.value
-    );
-
-  };
-
+    ); };
 
   return (
-
     <div className="meal-page">
-
-      {/* HEADER */}
-
       <div className="meal-header">
-
         <h2>
-          🍽️ Meal Planner
+          <span>🍽️</span> Meal Planner
         </h2>
-
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={handleDateChange}
-        />
-
+        <div className="date-selector">
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={handleDateChange}
+          />
+        </div>
       </div>
 
-
-      {/* LOADING */}
-
       {loading && (
-        <p>Loading...</p>
+        <div className="loading-state">
+          <p>Cooking up your plan...</p>
+        </div>
       )}
-
-
-      {/* COLUMNS */}
 
       {mealPlan && (
-
         <div className="meal-columns">
-
           <MealColumn
-            title="Breakfast"
+            title="🌅 Breakfast"
             mealType="Breakfast"
-            items={mealPlan.breakfast}
+            items={mealPlan.breakfast || []}
             date={selectedDate}
           />
 
           <MealColumn
-            title="Lunch"
+            title="☀️ Lunch"
             mealType="Lunch"
-            items={mealPlan.lunch}
+            items={mealPlan.lunch || []}
             date={selectedDate}
           />
 
           <MealColumn
-            title="Dinner"
+            title="🌙 Dinner"
             mealType="Dinner"
-            items={mealPlan.dinner}
+            items={mealPlan.dinner || []}
             date={selectedDate}
           />
-
         </div>
-
       )}
-
     </div>
-
-  );
-
-};
+  );};
 
 export default MealPlanPage;

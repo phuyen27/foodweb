@@ -29,12 +29,14 @@ axiosClient.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === 401 || status === 403) {
-      console.log("Token expired → logout");
+      console.error("Authentication error or session expired:", status);
 
-      Cookies.remove("token");
-      localStorage.removeItem("user");
-
-      window.location.href = "/login";
+      // Only clean up and redirect if we're not already on the login page
+      if (!window.location.pathname.includes("/login")) {
+        Cookies.remove("token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
+      }
     }
 
     return Promise.reject(error);
