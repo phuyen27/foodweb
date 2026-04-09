@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import BackButton from "../../../components/BackButton";
+import FavoriteButton from "../../favorite/components/FavoriteButton";
+
 import {
   FaFire,
   FaClock,
@@ -14,57 +17,109 @@ import {
 } from "react-icons/fa";
 
 import "./FoodDetailPage.css";
-import FavoriteButton from "../../favorite/components/FavoriteButton";
+
 import {
   getFoodDetail,
+  getIngredients,
   clearFoodDetail
 } from "../foodSlice";
 
 const FoodDetailPage = () => {
+
   const { id } = useParams();
+
   const dispatch = useDispatch();
-  const { foodDetail, status, error  } = useSelector((state) => state.food);
+
+  const {
+    foodDetail,
+    ingredients,
+    status,
+    error
+  } = useSelector((state) => state.food);
 
   useEffect(() => {
+
     dispatch(getFoodDetail(id));
+    dispatch(getIngredients(id));
+
     return () => {
+
       dispatch(clearFoodDetail());
-    };}, [dispatch, id]);
+
+    };
+
+  }, [dispatch, id]);
 
   /* Loading */
+
   if (status === "loading") {
+
     return (
+
       <div className="loading-page">
+
         <FaSpinner className="spin" />
+
         Loading food detail...
+
       </div>
-    );}
+
+    );
+
+  }
 
   /* Error */
+
   if (error) {
+
     return (
+
       <p className="error">
+
         {error}
-      </p>);}
+
+      </p>
+
+    );
+
+  }
+
   if (!foodDetail) {
-    return null;}
+
+    return null;
+
+  }
 
   return (
+
     <div className="detail-container">
-       <BackButton />
+
+      {/* BACK BUTTON */}
+
+      <BackButton />
+
+      {/* FAVORITE */}
+
       <FavoriteButton foodId={foodDetail.id} />
+
       {/* IMAGE */}
-      
+
       <div className="image-box">
+
         <img
           src={foodDetail.imageUrl}
           alt={foodDetail.name}
           className="detail-image"
         />
+
         {/* Difficulty Badge */}
 
-        <div className={`difficulty-badge ${foodDetail.difficulty?.toLowerCase()}`}>
+        <div
+          className={`difficulty-badge ${foodDetail.difficulty?.toLowerCase()}`}
+        >
+
           {foodDetail.difficulty}
+
         </div>
 
       </div>
@@ -74,13 +129,17 @@ const FoodDetailPage = () => {
       <div className="detail-info">
 
         <h1 className="food-title">
+
           {foodDetail.name}
+
         </h1>
 
         {/* Description */}
 
         <p className="description">
+
           {foodDetail.description}
+
         </p>
 
         {/* INFO LIST */}
@@ -141,22 +200,41 @@ const FoodDetailPage = () => {
 
         {/* INGREDIENTS */}
 
-        {foodDetail.ingredients && (
+        {ingredients &&
+          ingredients.length > 0 && (
 
           <div className="ingredients-box">
 
             <h2>
 
-              <FaListUl /> Ingredients
+              <FaListUl />
+
+              Ingredients
 
             </h2>
 
             <ul>
 
-              {foodDetail.ingredients.map((ing) => (
+              {ingredients.map((ing, index) => (
 
-                <li key={ing.id}>
-                  {ing.name}
+                <li key={index}>
+
+                  <span className="ingredient-name">
+
+                    {ing.name}
+
+                  </span>
+
+                  {ing.quantity && (
+
+                    <span className="ingredient-qty">
+
+                      {ing.quantity}
+
+                    </span>
+
+                  )}
+
                 </li>
 
               ))}
@@ -175,7 +253,9 @@ const FoodDetailPage = () => {
 
             <h2>
 
-              <FaListUl /> Cooking Steps
+              <FaListUl />
+
+              Cooking Steps
 
             </h2>
 
@@ -186,10 +266,12 @@ const FoodDetailPage = () => {
                 .map((step, index) => (
 
                   <li key={index}>
+
                     {step}
+
                   </li>
 
-              ))}
+                ))}
 
             </ol>
 
@@ -200,7 +282,9 @@ const FoodDetailPage = () => {
       </div>
 
     </div>
+
   );
+
 };
 
 export default FoodDetailPage;

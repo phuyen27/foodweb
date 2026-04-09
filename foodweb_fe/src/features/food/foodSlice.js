@@ -3,7 +3,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getFoodDetailApi,
     getFoodListApi,
     getFoodBySearchApi,
-    getFoodCategoriesApi
+    getFoodCategoriesApi,
+    getIngredientsApi
  } from "./food.api";
 
  export const getFoodList = createAsyncThunk(
@@ -52,6 +53,28 @@ export const getFoodCategory = createAsyncThunk(
     }
 );
 
+//ingredients
+export const getIngredients = createAsyncThunk(
+  "food/getIngredients",
+  async (foodId, { rejectWithValue }) => {
+
+    try {
+
+      const res =
+        await getIngredientsApi(foodId);
+
+      return res.data;
+
+    } catch (err) {
+
+      return rejectWithValue(
+        err.response?.data
+      );
+
+    }
+
+  }
+);
 
 //SLICE
 
@@ -60,14 +83,16 @@ const foodSlice = createSlice({
     initialState: {
         foodList: [],
         foodDetail: null,
+        ingredients: [],
         searchResults: [],
         categoryResults: [],
         status: false,
         error: null
-    },
+    },   
     reducers: {
         clearFoodDetail: (state) => {
             state.foodDetail = null;
+            state.ingredients = []; 
         },
         clearSearchResults: (state) => {
             state.searchResults = [];
@@ -128,13 +153,30 @@ const foodSlice = createSlice({
             .addCase(getFoodCategory.rejected, (state, action) => {
                 state.status = false;
                 state.error = action.payload ||action.error.message;
-            }); 
+            })
+
+
+            //get ingredients
+            .addCase(getIngredients.pending, (state) => {
+                state.status = true;
+                state.error = null;
+            })
+            .addCase(getIngredients.fulfilled, (state, action) => {
+                state.status = false;
+                 state.ingredients = action.payload;
+            })
+            .addCase(getIngredients.rejected, (state, action) => {
+                state.status = false;
+                state.error = action.payload || action.error.message;
+            });
+
     }
 });
 
 export const {
   clearFoodDetail,
   clearSearchResults
+  
 } = foodSlice.actions;
 
 export default foodSlice.reducer;
