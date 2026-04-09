@@ -1,7 +1,9 @@
 package com.example.foodweb_be.controller;
 
+import com.example.foodweb_be.dto.IngredientResponse;
 import com.example.foodweb_be.entity.Food;
 import com.example.foodweb_be.service.FoodService;
+import com.example.foodweb_be.service.IngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FoodController {
     private final FoodService foodService;
+
+    private final IngredientService ingredientService;
 
     @GetMapping
     public List<Food> getAllFoods() {
@@ -25,7 +29,6 @@ public class FoodController {
         return foodService.getFoodById(id);
 
     }
-
 
     @GetMapping("/search")
     public List<Food> searchFoods(
@@ -43,5 +46,12 @@ public class FoodController {
         return foodService
                 .getFoodsByCategory(category);
 
+    }
+
+    @GetMapping("/{foodId}/ingredients")
+    public List<IngredientResponse> getIngredients(
+            @PathVariable Long foodId
+    ) {
+        return ingredientService.getIngredientsByFoodId(foodId);
     }
 }
