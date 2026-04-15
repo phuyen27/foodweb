@@ -60,7 +60,9 @@ const Navbar = () => {
             <NavLink to="/foods" className={getNavClass} onClick={toggleMenu}>
               Food
             </NavLink>
+
           </li>
+          
 
           {/* Mobile user or login */}
           {user ? (
@@ -78,6 +80,12 @@ const Navbar = () => {
               </NavLink>
               <NavLink to="/profile" className={getNavClass} onClick={toggleMenu}>
                 Your Profile
+              </NavLink>
+              <NavLink to="/preferences" className={getNavClass} onClick={toggleMenu}>
+                Preferences
+              </NavLink>
+              <NavLink to="/history" className={getNavClass} onClick={toggleMenu}>
+                History
               </NavLink>
               <div className="nav-links logout" onClick={() => { handleLogout(); toggleMenu(); }}>
                 Logout
@@ -114,6 +122,12 @@ const Navbar = () => {
                   </NavLink>
                   <NavLink to="/profile" className="dropdown-item">
                     Your Profile
+                  </NavLink>
+                  <NavLink to="/preferences" className="dropdown-item">
+                    Preferences
+                  </NavLink>
+                  <NavLink to="/history" className="dropdown-item">
+                    History
                   </NavLink>
                   <div className="dropdown-item" onClick={handleLogout}>
                     Logout

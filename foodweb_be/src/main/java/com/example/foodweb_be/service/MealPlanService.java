@@ -4,18 +4,14 @@ import com.example.foodweb_be.dto.AddMealItemRequest;
 import com.example.foodweb_be.dto.MealPlanItemResponse;
 import com.example.foodweb_be.dto.MealPlanResponse;
 import com.example.foodweb_be.dto.UpdateMealItemRequest;
-import com.example.foodweb_be.entity.Food;
-import com.example.foodweb_be.entity.MealPlan;
-import com.example.foodweb_be.entity.MealPlanItem;
-import com.example.foodweb_be.entity.User;
-import com.example.foodweb_be.respository.FoodRepository;
-import com.example.foodweb_be.respository.MealPlanItemRepository;
-import com.example.foodweb_be.respository.MealPlanRepository;
-import com.example.foodweb_be.respository.UserRepository;
+import com.example.foodweb_be.entity.*;
+import com.example.foodweb_be.enums.ActionType;
+import com.example.foodweb_be.respository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +22,7 @@ public class MealPlanService {
     private final MealPlanItemRepository  mealPlanItemRepository;
     private final FoodRepository  foodRepository;
     private final UserRepository userRepository;
+    private final UserFoodHistoryRepository userFoodHistoryRepository;
 
     private User getUserByEmail(String email) {
 
@@ -75,6 +72,15 @@ public class MealPlanService {
                 .note(request.getNote())
                 .build();
 
+        UserFoodHistory history =
+                UserFoodHistory.builder()
+                        .userId(user.getId())
+                        .foodId(food.getId())
+                        .action(ActionType.cooked)
+                        .createdAt(LocalDateTime.now())
+                        .build();
+
+        userFoodHistoryRepository.save(history);
         mealPlanItemRepository.save(item);
     }
 

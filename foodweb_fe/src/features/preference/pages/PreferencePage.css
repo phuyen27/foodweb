@@ -1,0 +1,63 @@
+.preference-container {
+
+  max-width: 600px;
+
+  margin: auto;
+
+  padding: 24px;
+
+}
+
+.preference-container h1 {
+
+  margin-bottom: 24px;
+
+  color: #ea580c;
+
+}
+
+.section {
+
+  margin-bottom: 28px;
+
+}
+
+.section h2 {
+
+  margin-bottom: 12px;
+
+}
+
+.section label {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  cursor: pointer;
+
+}
+
+.save-btn {
+
+  background: #f97316;
+
+  color: white;
+
+  padding: 12px 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+}
+
+.save-btn:hover {
+
+  background: #ea580c;
+
+}

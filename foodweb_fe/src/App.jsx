@@ -13,6 +13,8 @@ import FoodDetailPage from "./features/food/pages/FoodDetailPage.jsx"
 import FavoritePage from "./features/favorite/pages/FavoritePage.jsx";
 import MealPlanPage from "./features/meal/pages/MealPlanPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import PreferencePage from "./features/preference/pages/PreferencePage.jsx";
+import HistoryPage from "./features/history/pages/HistoryPage.jsx";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -43,6 +45,8 @@ function App() {
             <Route path="/meal-plan" element={<MealPlanPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/favorites" element={<FavoritePage />} />
+            <Route path="/preferences" element={<PreferencePage />} />
+            <Route path="/history" element={<HistoryPage />} />
           </Route>
         </Route>
 
