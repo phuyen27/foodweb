@@ -4,11 +4,14 @@
 
 ---
 
-## 📸 Screenshots
+## 🏠 Home Page
+![Home Page](docs/images/home.png)
 
-* Home Page: `docs/images/home.png`
-* Meal Plan Page: `docs/images/meal-plan.png`
-* Food Detail Page: `docs/images/food.png`
+## 📅 Meal Plan Page
+![Meal Plan](docs/images/meal-plan.png)
+
+## 🍲 Food Detail Page
+![Food Detail](docs/images/food.png)
 
 ---
 
@@ -137,10 +140,10 @@ users, foods, ingredients, food_ingredients, meal_plans, meal_plan_items, favori
 * GET `/api/favorites`
 
 ---
+## 📂 Project Structure  
 
-## 📂 Project Structure
-
-**Backend (Spring Boot):**
+### Backend (Spring Boot)
+```
 foodweb_be/
 ├── controller
 ├── service
@@ -149,8 +152,10 @@ foodweb_be/
 ├── dto
 ├── enums
 └── config
+```
 
-**Frontend (ReactJS):**
+### Frontend (ReactJS)
+```
 foodweb_fe/
 ├── src/
 │   ├── features/
@@ -161,8 +166,8 @@ foodweb_fe/
 │   ├── components/
 │   ├── pages/
 │   └── store/
+```
 
----
 
 ## ⚙️ Installation Guide
 
