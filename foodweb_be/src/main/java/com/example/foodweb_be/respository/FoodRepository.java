@@ -1,6 +1,7 @@
 package com.example.foodweb_be.respository;
 
 import com.example.foodweb_be.entity.Food;
+import com.example.foodweb_be.enums.Difficulty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,28 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
             @Param("categories") List<String> categories
     );
     List<Food> findTop10ByOrderByRatingDesc();
+
+    @Query("""
+SELECT f
+FROM Food f
+WHERE (:category IS NULL
+        OR f.category = :category)
+
+AND (:difficulty IS NULL
+        OR f.difficulty = :difficulty)
+
+AND (:maxCookingTime IS NULL
+        OR f.cookingTime <= :maxCookingTime)
+
+AND (:maxCalories IS NULL
+        OR f.calories <= :maxCalories)
+
+ORDER BY f.rating DESC
+""")
+    List<Food> filterFoods(
+            String category,
+            Difficulty difficulty,
+            Integer maxCookingTime,
+            Integer maxCalories
+    );
 }

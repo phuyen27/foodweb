@@ -5,7 +5,8 @@ import { getFoodDetailApi,
     getFoodBySearchApi,
     getFoodCategoriesApi,
     getIngredientsApi,
-    getRecommendedFoodsApi   
+    getRecommendedFoodsApi,
+    recommendByPreferenceApi    
  } from "./food.api";
 
  export const getFoodList = createAsyncThunk(
@@ -100,6 +101,19 @@ export const getRecommendedFoods = createAsyncThunk(
     }
 );
 
+export const recommendByPreference = createAsyncThunk(
+    "food/recommendByPreference",
+    async (preferenceData, { rejectWithValue }) => {
+        try {
+            const res = await recommendByPreferenceApi(preferenceData);
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Failed to recommend foods by preference"
+            );
+        }
+    }
+);
 //SLICE
 
 const foodSlice = createSlice({
@@ -110,9 +124,13 @@ const foodSlice = createSlice({
         ingredients: [],
         searchResults: [],
         categoryResults: [],
-            recommendedFoods: [],
+        recommendedFoods: [],
+        preferenceResults: [],
         status: false,
-        error: null
+        error: null,
+      
+  preferenceStatus: "idle",
+  preferenceError: null,
     },   
     reducers: {
         clearFoodDetail: (state) => {
@@ -195,22 +213,37 @@ const foodSlice = createSlice({
                 state.error = action.payload || action.error.message;
             })
             // get recommended foods
-.addCase(getRecommendedFoods.pending, (state) => {
-    state.status = true;
-    state.error = null;
+        .addCase(getRecommendedFoods.pending, (state) => {
+            state.status = true;
+            state.error = null;
+        })
+
+        .addCase(getRecommendedFoods.fulfilled, (state, action) => {
+            state.status = false;
+            state.recommendedFoods = action.payload;
+        })
+
+        .addCase(getRecommendedFoods.rejected, (state, action) => {
+            state.status = false;
+            state.error =
+                action.payload || action.error.message;
+        })
+        // recommend by preference
+        .addCase(recommendByPreference.pending, (state) => {
+  state.preferenceStatus = "loading";
 })
 
-.addCase(getRecommendedFoods.fulfilled, (state, action) => {
-    state.status = false;
-    state.recommendedFoods = action.payload;
+.addCase(recommendByPreference.fulfilled, (state, action) => {
+  state.preferenceStatus = "succeeded";
+  state.preferenceResults = action.payload;
 })
 
-.addCase(getRecommendedFoods.rejected, (state, action) => {
-    state.status = false;
-    state.error =
-        action.payload || action.error.message;
-});
+.addCase(recommendByPreference.rejected, (state, action) => {
+  state.preferenceStatus = "failed";
+  state.preferenceError = action.payload;
+})
 
+        
     }
 });
 

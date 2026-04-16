@@ -26,5 +26,10 @@ extends JpaRepository<FavoriteFood, FavoriteFoodId> {
 """)
     List<String> findFavoriteCategories(@Param("userId") Long userId);
 
-
+    @Query("""
+    SELECT ff.food.name
+        FROM FavoriteFood ff
+            WHERE ff.user.email = :email
+    """)
+    List<String> findFavoriteFoodNames(String email);
 }

@@ -1,5 +1,6 @@
 package com.example.foodweb_be.controller;
 
+import com.example.foodweb_be.dto.FoodPreferenceRequest;
 import com.example.foodweb_be.dto.IngredientResponse;
 import com.example.foodweb_be.entity.Food;
 import com.example.foodweb_be.service.FoodService;
@@ -65,4 +66,12 @@ public class FoodController {
 
         return ResponseEntity.ok(foods);
     }
+
+    @PostMapping("/recommend-by-preference")
+    public ResponseEntity<List<Food>> getRecommendedFoodsByPreference(@RequestBody FoodPreferenceRequest request) {
+        List<Food> foods = foodService.recommendByPreference(request);
+        return ResponseEntity.ok(foods);
+    }
+
+
 }

@@ -37,5 +37,4 @@ build/
 
 .nvm
 .gitattributes
-.mvnw
-.cnd
+.mvnw.cnd

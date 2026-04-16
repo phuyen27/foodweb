@@ -24,4 +24,19 @@ public interface UserFoodHistoryRepository extends JpaRepository<UserFoodHistory
             @Param("userId") Long userId,
             Pageable pageable
     );
+
+    @Query("""
+        SELECT f.name
+        FROM UserFoodHistory h
+        JOIN Food f
+            ON h.foodId = f.id
+        JOIN User u
+            ON h.userId = u.id
+        WHERE u.email = :email
+        ORDER BY h.createdAt DESC
+    """)
+    List<String>
+    findRecentFoodNames(
+            String email
+    );
 }

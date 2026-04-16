@@ -17,3 +17,7 @@ export const getIngredientsApi = (id) =>
 
 export const getRecommendedFoodsApi = () =>
     axiosClient.get("/foods/recommended");
+
+export const recommendByPreferenceApi = (data) => {
+    return axiosClient.post("/foods/recommend-by-preference", data);
+}

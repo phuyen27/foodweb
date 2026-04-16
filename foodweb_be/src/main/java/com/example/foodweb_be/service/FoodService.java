@@ -1,7 +1,9 @@
 package com.example.foodweb_be.service;
 
+import com.example.foodweb_be.dto.FoodPreferenceRequest;
 import com.example.foodweb_be.entity.Food;
 import com.example.foodweb_be.entity.User;
+import com.example.foodweb_be.enums.Difficulty;
 import com.example.foodweb_be.respository.FavoriteFoodRepository;
 import com.example.foodweb_be.respository.FoodRepository;
 import com.example.foodweb_be.respository.UserFoodHistoryRepository;
@@ -63,5 +65,20 @@ public class FoodService {
                 .limit(10)
                 .toList();
         
+    }
+
+    public List<Food> recommendByPreference(FoodPreferenceRequest request) {
+        Difficulty difficulty = null;
+
+        if(request.getDifficulty() != null) {
+            difficulty = Difficulty.valueOf(request.getDifficulty());
+        }
+
+        return foodRepository.filterFoods(
+                request.getCategory(),
+                difficulty,
+                request.getMaxCookingTime(),
+                request.getMaxCalories()
+        );
     }
 }

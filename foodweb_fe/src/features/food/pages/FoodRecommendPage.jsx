@@ -21,7 +21,7 @@ const FoodRecommendPage = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(getRecommendedFoods()); // ✅ không cần userId
+      dispatch(getRecommendedFoods()); 
     }
   }, [dispatch, user]);
 
