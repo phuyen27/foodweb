@@ -5,6 +5,8 @@ import com.example.foodweb_be.entity.Food;
 import com.example.foodweb_be.service.FoodService;
 import com.example.foodweb_be.service.IngredientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,5 +55,14 @@ public class FoodController {
             @PathVariable Long foodId
     ) {
         return ingredientService.getIngredientsByFoodId(foodId);
+    }
+
+    @GetMapping("/recommended")
+    public ResponseEntity<List<Food>> getRecommendedFoods(@AuthenticationPrincipal String email) {
+
+        List<Food> foods =
+                foodService.getRecommendedFoods(email);
+
+        return ResponseEntity.ok(foods);
     }
 }

@@ -4,7 +4,8 @@ import { getFoodDetailApi,
     getFoodListApi,
     getFoodBySearchApi,
     getFoodCategoriesApi,
-    getIngredientsApi
+    getIngredientsApi,
+    getRecommendedFoodsApi   
  } from "./food.api";
 
  export const getFoodList = createAsyncThunk(
@@ -76,6 +77,29 @@ export const getIngredients = createAsyncThunk(
   }
 );
 
+export const getRecommendedFoods = createAsyncThunk(
+    "food/getRecommendedFoods",
+    async (_, { rejectWithValue }) => {
+
+        try {
+
+            const res =
+                await getRecommendedFoodsApi();
+
+            return res.data;
+
+        } catch (error) {
+
+            return rejectWithValue(
+                error.response?.data?.message
+                || "Failed to fetch recommended foods"
+            );
+
+        }
+
+    }
+);
+
 //SLICE
 
 const foodSlice = createSlice({
@@ -86,6 +110,7 @@ const foodSlice = createSlice({
         ingredients: [],
         searchResults: [],
         categoryResults: [],
+            recommendedFoods: [],
         status: false,
         error: null
     },   
@@ -168,7 +193,23 @@ const foodSlice = createSlice({
             .addCase(getIngredients.rejected, (state, action) => {
                 state.status = false;
                 state.error = action.payload || action.error.message;
-            });
+            })
+            // get recommended foods
+.addCase(getRecommendedFoods.pending, (state) => {
+    state.status = true;
+    state.error = null;
+})
+
+.addCase(getRecommendedFoods.fulfilled, (state, action) => {
+    state.status = false;
+    state.recommendedFoods = action.payload;
+})
+
+.addCase(getRecommendedFoods.rejected, (state, action) => {
+    state.status = false;
+    state.error =
+        action.payload || action.error.message;
+});
 
     }
 });

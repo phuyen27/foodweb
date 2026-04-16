@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 import {
   getMealPlan
 } from "../mealSlice";
@@ -54,6 +54,9 @@ const MealPlanPage = () => {
           <p>Cooking up your plan...</p>
         </div>
       )}
+      <p className="recommend-link">Still don't know what to order?
+        <Link to="/recommendations" >Recommended Meals</Link>
+      </p>
 
       {mealPlan && (
         <div className="meal-columns">

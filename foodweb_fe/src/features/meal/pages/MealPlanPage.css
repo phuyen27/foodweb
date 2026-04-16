@@ -409,3 +409,18 @@ body.modal-open {
 .confirm-btn:hover {
   background: #fa5252;
 }
+
+/* RECOMMEND LINK */
+.recommend-link {
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #495057;
+}
+
+.recommend-link a {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 5px;
+}

@@ -14,3 +14,6 @@ export const getFoodCategoriesApi = (category) =>
 
 export const getIngredientsApi = (id) =>
     axiosClient.get(`/foods/${id}/ingredients`);
+
+export const getRecommendedFoodsApi = () =>
+    axiosClient.get("/foods/recommended");

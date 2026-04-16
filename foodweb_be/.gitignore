@@ -34,3 +34,8 @@ build/
 
 ### ENV ###
 .env
+
+.nvm
+.gitattributes
+.mvnw
+.cnd
