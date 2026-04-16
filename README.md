@@ -1,196 +1,147 @@
 # 🍽️ FoodWeb - Meal Planning Web Application
 
-FoodWeb is a full-stack meal planning web application that helps users browse recipes, manage meal plans, and track cooking history.  
-The system allows users to organize daily meals, save favorite foods, and monitor their cooking behavior.
+**FoodWeb** is a full-stack web application designed to help users plan meals, explore recipes, and track their cooking habits. The system allows users to organize daily meals, save favorite foods, and monitor their interactions to support future recommendations.
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 
-## 🏠 Home Page
-![Home Page](docs/images/home.png)
-
-## 📅 Meal Plan Page
-![Meal Plan](docs/images/meal-plan.png)
-
-## 🍲 Food Detail Page
-![Food Detail](docs/images/food.png)
+* Home Page: `docs/images/home.png`
+* Meal Plan Page: `docs/images/meal-plan.png`
+* Food Detail Page: `docs/images/food.png`
 
 ---
 
-# 🚀 Features
+## 🚀 Features
 
-## 👤 User Features
-- User authentication
-- View personal profile
-- Update profile information
-- Save favorite foods
-- Track food interaction history
+### 👤 User Features
 
-## 🍽️ Food Management
-- Browse food list
-- View detailed food information
-- Search foods by name
-- Filter foods by category
-- Pagination support
+* User authentication (login/register)
+* View and update profile information
+* Save favorite foods
+* Track food interaction history
 
-## 📅 Meal Planning
-- Create daily meal plans
-- Add foods to meal plans
-- Organize meals by:
-  - Breakfast
-  - Lunch
-  - Dinner
-- Update or remove meal items
-- Automatic history tracking when meals are added
+### 🍽️ Food Management
 
-## ❤️ Favorites
-- Add foods to favorites
-- Remove foods from favorites
-- View favorite food list
+* Browse food list
+* View detailed food information
+* Search foods by name
+* Filter foods by category
+* Pagination support
 
-## 📊 Food History Tracking
-- Automatically record:
-  - Cooked foods
-  - Liked foods
-  - Skipped foods
-- Store user behavior for future recommendations
+### 📅 Meal Planning
 
----
+* Create daily meal plans
+* Add foods to meal plans
+* Organize meals by Breakfast, Lunch, and Dinner
+* Update or remove meal items
+* Automatically track history when meals are added
 
-# 🛠️ Tech Stack
+### ❤️ Favorites
 
-## Frontend
-- ReactJS
-- Redux Toolkit
-- React Router
-- CSS
-- Axios
+* Add foods to favorites
+* Remove foods from favorites
+* View favorite food list
 
-## Backend
-- Java
-- Spring Boot
-- Spring Data JPA
-- RESTful APIs
+### 📊 Food History Tracking
 
-## Database
-- MySQL
+* Automatically record:
 
-## Tools
-- Git & GitHub
-- Postman
-- VS Code
-- IntelliJ IDEA
+  * Cooked foods
+  * Liked foods
+  * Skipped foods
+* Store user behavior for future recommendations
 
 ---
 
-# 🏗️ System Architecture
+## 🛠️ Tech Stack
 
-Frontend (ReactJS) communicates with Backend (Spring Boot) through RESTful APIs.  
-Backend processes business logic and interacts with MySQL database.
+**Frontend:**
+
+* ReactJS
+* Redux Toolkit
+* React Router
+* Axios
+* CSS
+
+**Backend:**
+
+* Java
+* Spring Boot
+* Spring Data JPA
+* RESTful APIs
+
+**Database:**
+
+* MySQL
+
+**Tools:**
+
+* Git & GitHub
+* Postman
+* VS Code
+* IntelliJ IDEA
 
 ---
 
-# 🗄️ Database Design
+## 🏗️ System Architecture
 
-Main tables:
-
-- users
-- foods
-- ingredients
-- food_ingredients
-- meal_plans
-- meal_plan_items
-- favorite_foods
-- user_food_history
-- user_preferences
-
-Key relationships:
-
-- One user → many meal plans  
-- One meal plan → many meal items  
-- Foods ↔ Ingredients (Many-to-Many)  
-- Users ↔ Favorite Foods (Many-to-Many)
+The frontend (ReactJS) communicates with the backend (Spring Boot) through RESTful APIs. The backend handles business logic and interacts with a MySQL database.
 
 ---
 
-# 🔌 API Overview
+## 🗄️ Database Design
 
-## Meal Plan APIs
+**Main Tables:**
+users, foods, ingredients, food_ingredients, meal_plans, meal_plan_items, favorite_foods, user_food_history, user_preferences
 
-### Get Meal Plan by Date
-GET /api/meal-plans?date=YYYY-MM-DD
+**Key Relationships:**
 
+* One user → many meal plans
+* One meal plan → many meal items
+* Foods ↔ Ingredients (Many-to-Many)
+* Users ↔ Favorite Foods (Many-to-Many)
 
-### Add Meal Item
+---
 
+## 🔌 API Overview
 
-POST /api/meal-plans
+### Meal Plan APIs
 
-Body:
+* GET `/api/meal-plans?date=YYYY-MM-DD`
+* POST `/api/meal-plans`
+* PUT `/api/meal-plans/{itemId}`
+* DELETE `/api/meal-plans/{itemId}`
+
+**Example request body (POST):**
+
+```json
 {
-"foodId": 1,
-"date": "2026-04-15",
-"mealType": "Breakfast",
-"note": "Healthy meal"
+  "foodId": 1,
+  "date": "2026-04-15",
+  "mealType": "Breakfast",
+  "note": "Healthy meal"
 }
+```
 
+### Food APIs
 
-### Update Meal Item
+* GET `/api/foods`
+* GET `/api/foods/{id}`
+* GET `/api/foods/search?keyword=chicken`
 
+### Favorite APIs
 
-PUT /api/meal-plans/{itemId}
-
-
-### Delete Meal Item
-
-
-DELETE /api/meal-plans/{itemId}
-
-
----
-
-## Food APIs
-
-### Get All Foods
-
-
-GET /api/foods
-
-
-### Get Food Detail
-
-
-GET /api/foods/{id}
-
-
-### Search Food
-
-
-GET /api/foods/search?keyword=chicken
-
+* POST `/api/favorites/{foodId}`
+* DELETE `/api/favorites/{foodId}`
+* GET `/api/favorites`
 
 ---
 
-## Favorite APIs
+## 📂 Project Structure
 
-
-POST /api/favorites/{foodId}
-
-DELETE /api/favorites/{foodId}
-
-GET /api/favorites
-
-
----
-
-# 📂 Project Structure
-
-## Backend (Spring Boot)
-
-
-foodweb_be
-│
+**Backend (Spring Boot):**
+foodweb_be/
 ├── controller
 ├── service
 ├── repository
@@ -199,67 +150,68 @@ foodweb_be
 ├── enums
 └── config
 
-
-## Frontend (ReactJS)
-
-
-foodweb_fe
-│
-├── src
-│ ├── features
-│ │ ├── food
-│ │ ├── meal
-│ │ ├── favorite
-│ │ └── history
-│ │
-│ ├── components
-│ ├── pages
-│ └── store
-
+**Frontend (ReactJS):**
+foodweb_fe/
+├── src/
+│   ├── features/
+│   │   ├── food/
+│   │   ├── meal/
+│   │   ├── favorite/
+│   │   └── history/
+│   ├── components/
+│   ├── pages/
+│   └── store/
 
 ---
 
-# ⚙️ Installation Guide
+## ⚙️ Installation Guide
 
-## Backend Setup
+**Backend:**
 
 ```bash
 cd foodweb_be
-
 mvn clean install
-
 mvn spring-boot:run
+```
 
-Backend runs at:
+Runs at: http://localhost:8080
 
-http://localhost:8080
-Frontend Setup
+**Frontend:**
+
+```bash
 cd foodweb_fe
-
 npm install
-
 npm run dev
+```
 
-Frontend runs at:
+Runs at: http://localhost:5173
 
-http://localhost:5173
-📊 Key Highlights
-Designed relational database schema with multiple relationships
-Implemented RESTful APIs using Spring Boot
-Built dynamic UI using ReactJS and Redux Toolkit
-Implemented automatic food history tracking when users add meals to meal plans
-Developed reusable components for scalability
-Integrated meal scheduling system
-🔮 Future Improvements
-Food recommendation system
-Nutrition tracking (calories)
-Weekly meal plan view
-Admin dashboard
-AI-based meal suggestion
-👩‍💻 Author
+---
+
+## 📊 Key Highlights
+
+* Designed a relational database with multiple relationships
+* Built RESTful APIs using Spring Boot
+* Developed a dynamic UI with ReactJS and Redux Toolkit
+* Implemented automatic user history tracking
+* Built reusable and scalable components
+* Developed a flexible meal planning system
+
+---
+
+## 🔮 Future Improvements
+
+* Food recommendation system
+* Nutrition tracking (calories)
+* Weekly meal planning view
+* Admin dashboard
+* AI-based meal suggestions
+
+---
+
+## 👩‍💻 Author
 
 Pham Thi Phuong Uyen
 
-📧 Email: puyen274@gmail.com
-
-💻 GitHub: https://github.com/phuyen27
+Email: [puyen274@gmail.com](mailto:puyen274@gmail.com)
+GitHub: https://github.com/phuyen27
