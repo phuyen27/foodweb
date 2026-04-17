@@ -1,6 +1,7 @@
 package com.example.foodweb_be.service;
 
 import com.example.foodweb_be.dto.FoodPreferenceRequest;
+import com.example.foodweb_be.dto.GeneratedFoodResponse;
 import com.example.foodweb_be.entity.Food;
 import com.example.foodweb_be.entity.User;
 import com.example.foodweb_be.enums.Difficulty;
@@ -80,5 +81,26 @@ public class FoodService {
                 request.getMaxCookingTime(),
                 request.getMaxCalories()
         );
+    }
+
+    public Food saveGeneratedFood(GeneratedFoodResponse request) {
+        Food food = new Food();
+
+        food.setName(request.getName());
+        food.setCalories(request.getCalories());
+        food.setCookingTime(request.getCookingTime());
+        food.setServings(request.getServings());
+        food.setCategory(request.getCategory());
+        food.setDescription(request.getDescription());
+        food.setSteps(request.getSteps());
+        food.setDifficulty(
+                Difficulty.valueOf(
+                        request.getDifficulty()
+                )
+        );
+        food.setImageUrl(request.getImageUrl());
+        food.setRating(4.0);
+
+        return foodRepository.save(food);
     }
 }

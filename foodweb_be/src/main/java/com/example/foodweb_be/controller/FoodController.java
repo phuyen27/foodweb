@@ -1,8 +1,11 @@
 package com.example.foodweb_be.controller;
 
+import com.example.foodweb_be.dto.AIFoodRequest;
 import com.example.foodweb_be.dto.FoodPreferenceRequest;
+import com.example.foodweb_be.dto.GeneratedFoodResponse;
 import com.example.foodweb_be.dto.IngredientResponse;
 import com.example.foodweb_be.entity.Food;
+import com.example.foodweb_be.service.AIService;
 import com.example.foodweb_be.service.FoodService;
 import com.example.foodweb_be.service.IngredientService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ public class FoodController {
 
     private final IngredientService ingredientService;
 
+    private final AIService  aiService;
     @GetMapping
     public List<Food> getAllFoods() {
         return foodService.getAllFoods();
@@ -74,4 +78,29 @@ public class FoodController {
     }
 
 
+    @PostMapping("/ai-generate")
+    public ResponseEntity<GeneratedFoodResponse> generateFood(@RequestBody AIFoodRequest request) {
+        GeneratedFoodResponse food = aiService.generateFood(request.getMessage());
+        return ResponseEntity.ok(food);
+    }
+
+    @PostMapping("/save-generated-food")
+    public ResponseEntity<Food>
+    saveGeneratedFood(
+
+            @RequestBody
+            GeneratedFoodResponse request
+
+    ) {
+
+        Food food =
+                foodService
+                        .saveGeneratedFood(
+                                request
+                        );
+
+        return ResponseEntity.ok(
+                food
+        );
+    }
 }
