@@ -79,28 +79,22 @@ public class FoodController {
 
 
     @PostMapping("/ai-generate")
-    public ResponseEntity<GeneratedFoodResponse> generateFood(@RequestBody AIFoodRequest request) {
-        GeneratedFoodResponse food = aiService.generateFood(request.getMessage());
+    public ResponseEntity<GeneratedFoodResponse> generateFood(
+            @RequestBody AIFoodRequest request
+    ) {
+        GeneratedFoodResponse food =
+                foodService.generateFood(request.getMessage());
+
         return ResponseEntity.ok(food);
     }
 
     @PostMapping("/save-generated-food")
-    public ResponseEntity<Food>
-    saveGeneratedFood(
-
-            @RequestBody
-            GeneratedFoodResponse request
-
+    public ResponseEntity<Food> saveGeneratedFood(
+            @RequestBody GeneratedFoodResponse request
     ) {
 
-        Food food =
-                foodService
-                        .saveGeneratedFood(
-                                request
-                        );
+        Food food = foodService.saveGeneratedFood(request);
 
-        return ResponseEntity.ok(
-                food
-        );
+        return ResponseEntity.ok(food);
     }
 }

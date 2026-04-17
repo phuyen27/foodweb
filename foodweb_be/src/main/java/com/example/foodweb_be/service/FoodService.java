@@ -22,6 +22,9 @@ public class FoodService {
     private final FavoriteFoodRepository favoriteFoodRepository;
     private final UserFoodHistoryRepository userFoodHistoryRepository;
     private final UserRepository userRepository;
+    private final AIService aiService;
+    private final ImageService imageService;
+
     public List<Food> getAllFoods() {
         return foodRepository.findAll();
     }
@@ -83,7 +86,18 @@ public class FoodService {
         );
     }
 
+    public GeneratedFoodResponse generateFood(String message) {
+
+        GeneratedFoodResponse food = aiService.generateFood(message);
+
+        String imageUrl = imageService.getImageUrl(food.getName());
+        food.setImageUrl(imageUrl);
+
+        return food;
+    }
+
     public Food saveGeneratedFood(GeneratedFoodResponse request) {
+
         Food food = new Food();
 
         food.setName(request.getName());
@@ -94,10 +108,9 @@ public class FoodService {
         food.setDescription(request.getDescription());
         food.setSteps(request.getSteps());
         food.setDifficulty(
-                Difficulty.valueOf(
-                        request.getDifficulty()
-                )
+                Difficulty.valueOf(request.getDifficulty())
         );
+
         food.setImageUrl(request.getImageUrl());
         food.setRating(4.0);
 

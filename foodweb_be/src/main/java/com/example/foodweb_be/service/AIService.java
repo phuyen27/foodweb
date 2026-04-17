@@ -29,9 +29,7 @@ public class AIService {
     private final ObjectMapper mapper =
             new ObjectMapper();
 
-    public GeneratedFoodResponse generateFood(
-            String userMessage
-    ) {
+    public GeneratedFoodResponse generateFood(String userMessage) {
 
         String prompt = """
 You are a professional chef AI.
@@ -47,6 +45,7 @@ IMPORTANT RULES:
 - No markdown
 - No extra text
 - All fields MUST exist
+- imageUrl MUST be empty string ""
 
 JSON FORMAT:
 
@@ -56,46 +55,27 @@ JSON FORMAT:
   "calories": 0,
   "cookingTime": 0,
   "servings": 0,
-  "imageUrl": "https://example.com/image.jpg",
-   "difficulty": "easy|medium|hard",
+  "imageUrl": "",
+  "difficulty": "easy|medium|hard",
   "description": "string",
-  "steps": "Step 1... Step 2..."
+  "steps": "Step 1...\\nStep 2...\\nStep 3..."
 }
 """.formatted(userMessage);
 
         String aiText = callAI(prompt);
 
-        System.out.println("===== AI RAW RESPONSE =====");
-        System.out.println(aiText);
-
-        // remove markdown nếu có
         aiText = aiText
                 .replace("```json", "")
                 .replace("```", "")
                 .trim();
 
-        // extract JSON nếu AI trả thêm text
         aiText = extractJson(aiText);
 
-        System.out.println("===== AI CLEAN JSON =====");
-        System.out.println(aiText);
-
         try {
-
-            return mapper.readValue(
-                    aiText,
-                    GeneratedFoodResponse.class
-            );
-
-        }
-        catch (Exception e) {
-
-            System.out.println("❌ JSON PARSE ERROR");
-            e.printStackTrace();
-
-            throw new RuntimeException(
-                    "AI JSON parse error: " + aiText
-            );
+            return mapper.readValue(aiText, GeneratedFoodResponse.class);
+        } catch (Exception e) {
+            System.out.println("⚠️ AI failed, using fallback");
+            return fallbackFood(userMessage);
         }
     }
 
@@ -184,5 +164,22 @@ JSON FORMAT:
         }
 
         return text;
+    }
+
+    //fallback
+    private GeneratedFoodResponse fallbackFood(String userMessage) {
+        GeneratedFoodResponse food = new GeneratedFoodResponse();
+
+        food.setName("Simple Fried Rice");
+        food.setCategory("fast food");
+        food.setCalories(500);
+        food.setCookingTime(15);
+        food.setServings(1);
+        food.setImageUrl("");
+        food.setDifficulty("easy");
+        food.setDescription("AI is temporarily unavailable. This is a fallback recipe.");
+        food.setSteps("Step 1: Cook rice\nStep 2: Stir fry\nStep 3: Serve");
+
+        return food;
     }
 }
