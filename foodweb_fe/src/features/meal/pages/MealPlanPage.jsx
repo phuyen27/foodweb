@@ -9,6 +9,14 @@ import MealColumn from "../components/MealColumn";
 
 import "./MealPlanPage.css";
 
+// import icon từ react-icons
+import {
+  FaUtensils,
+  FaSun,
+  FaCloudSun,
+  FaMoon
+} from "react-icons/fa";
+
 const MealPlanPage = () => {
 
   const dispatch = useDispatch();
@@ -32,14 +40,17 @@ const MealPlanPage = () => {
   const handleDateChange = (e) => {
     setSelectedDate(
       e.target.value
-    ); };
+    );
+  };
 
   return (
     <div className="meal-page">
       <div className="meal-header">
         <h2>
-          <span>🍽️</span> Meal Planner
+          <FaUtensils className="meal-icon" /> 
+          Meal Planner
         </h2>
+
         <div className="date-selector">
           <input
             type="date"
@@ -54,35 +65,54 @@ const MealPlanPage = () => {
           <p>Cooking up your plan...</p>
         </div>
       )}
-      <p className="recommend-link">Still don't know what to order?
-        <Link to="/recommendations" >Recommended Meals</Link>
+
+      <p className="recommend-link">
+        Still don't know what to order?
+        <Link to="/recommendations">
+          Recommended Meals
+        </Link>
       </p>
 
       {mealPlan && (
         <div className="meal-columns">
+
           <MealColumn
-            title="🌅 Breakfast"
+            title={
+              <>
+                <FaCloudSun /> Breakfast
+              </>
+            }
             mealType="Breakfast"
             items={mealPlan.breakfast || []}
             date={selectedDate}
           />
 
           <MealColumn
-            title="☀️ Lunch"
+            title={
+              <>
+                <FaSun /> Lunch
+              </>
+            }
             mealType="Lunch"
             items={mealPlan.lunch || []}
             date={selectedDate}
           />
 
           <MealColumn
-            title="🌙 Dinner"
+            title={
+              <>
+                <FaMoon /> Dinner
+              </>
+            }
             mealType="Dinner"
             items={mealPlan.dinner || []}
             date={selectedDate}
           />
+
         </div>
       )}
     </div>
-  );};
+  );
+};
 
 export default MealPlanPage;

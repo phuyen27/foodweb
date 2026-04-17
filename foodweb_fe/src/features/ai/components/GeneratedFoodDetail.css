@@ -1,0 +1,115 @@
+.generated-food {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+/* IMAGE */
+
+.generated-image-box {
+  position: relative;
+}
+
+.generated-image-box img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+
+  border-radius: 16px;
+}
+
+.difficulty-badge {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  padding: 6px 10px;
+
+  background: #f97316;
+  color: white;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+}
+
+/* TITLE */
+
+.generated-title {
+  font-size: 22px;
+  font-weight: 700;
+
+  margin: 14px 0;
+}
+
+/* INFO */
+
+.generated-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+
+  margin-bottom: 12px;
+}
+
+.generated-info p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 14px;
+  color: #555;
+}
+
+/* DESCRIPTION */
+
+.generated-description {
+  margin-bottom: 16px;
+  color: #666;
+}
+
+/* SECTIONS */
+
+.generated-section {
+  margin-top: 16px;
+}
+
+.generated-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 8px;
+}
+
+/* INGREDIENTS */
+
+.generated-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.generated-section li {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.qty {
+  color: #999;
+}
+
+/* STEPS */
+
+.generated-section ol {
+  padding-left: 18px;
+}
+
+.generated-section ol li {
+  margin-bottom: 6px;
+}

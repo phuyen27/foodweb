@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect
+} from "react";
 
 import {
   generateFoodApi,
   saveGeneratedFoodApi
 } from "../../food/food.api";
 
-import FoodCard from "../../food/components/FoodCard";
+import GeneratedFoodDetail
+  from "../components/GeneratedFoodDetail";
 
 import {
   FaRobot,
@@ -19,19 +24,33 @@ import "./AIFoodPage.css";
 const AIFoodPage = () => {
 
   const [message, setMessage] =
-      useState("");
+    useState("");
 
   const [chatList,
           setChatList] =
-      useState([]);
+    useState([]);
 
   const [generatedFood,
           setGeneratedFood] =
-      useState(null);
+    useState(null);
 
   const [loading,
           setLoading] =
-      useState(false);
+    useState(false);
+
+  // Auto scroll
+
+  const chatEndRef =
+    useRef(null);
+
+  useEffect(() => {
+
+    chatEndRef.current
+      ?.scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }, [chatList, generatedFood, loading]);
 
   // SEND MESSAGE
 
@@ -74,14 +93,14 @@ const AIFoodPage = () => {
         ]);
 
       }
-      catch (err) {
+      catch {
 
         setChatList(prev => [
           ...prev,
           {
             role: "ai",
             text:
-"🤖 Sorry, hệ thống đang bận hoặc bị lỗi. Vui lòng chờ chút rồi thử lại..."
+"🤖 Sorry, system error. Please try again..."
           }
         ]);
 
@@ -140,7 +159,9 @@ const AIFoodPage = () => {
 
       const lastUserMsg =
         chatList
-          .filter(c => c.role === "user")
+          .filter(c =>
+            c.role === "user"
+          )
           .slice(-1)[0];
 
       if (!lastUserMsg)
@@ -167,7 +188,7 @@ const AIFoodPage = () => {
           {
             role: "ai",
             text:
-"🤖 Sorry, AI đang bị gián đoạn, vui lòng thử lại sau..."
+"🤖 AI error. Try again later."
           }
         ]);
 
@@ -181,6 +202,8 @@ const AIFoodPage = () => {
 
     <div className="ai-container">
 
+      {/* TITLE */}
+
       <h1 className="title">
 
         <FaRobot />
@@ -189,7 +212,7 @@ const AIFoodPage = () => {
 
       </h1>
 
-      {/* CHAT AREA */}
+      {/* CHAT */}
 
       <div className="chat-box">
 
@@ -221,49 +244,45 @@ const AIFoodPage = () => {
 
         )}
 
-      </div>
+        {/* PREVIEW INSIDE CHAT */}
 
-      {/* PREVIEW */}
+        {generatedFood && (
 
-      {generatedFood && (
+          <div className="preview">
 
-        <div className="preview">
+            <GeneratedFoodDetail
+              food={generatedFood}
+            />
 
-          <FoodCard
-            food={generatedFood}
-          />
+            <div className="preview-actions">
 
-          <div className="preview-actions">
+              <button
+                className="confirm-btn"
+                onClick={handleSave}
+              >
+                <FaCheck />
+                OK Add
+              </button>
 
-            <button
-              className="confirm-btn"
-              onClick={handleSave}
-            >
+              <button
+                className="regen-btn"
+                onClick={handleRegenerate}
+              >
+                <FaRedo />
+                Generate Again
+              </button>
 
-              <FaCheck />
-
-              OK Add
-
-            </button>
-
-            <button
-              className="regen-btn"
-              onClick={handleRegenerate}
-            >
-
-              <FaRedo />
-
-              Generate Again
-
-            </button>
+            </div>
 
           </div>
 
-        </div>
+        )}
 
-      )}
+        <div ref={chatEndRef} />
 
-      {/* INPUT */}
+      </div>
+
+      {/* INPUT FIXED */}
 
       <div className="chat-input">
 
@@ -277,8 +296,10 @@ const AIFoodPage = () => {
             )
           }
           onKeyDown={(e) => {
+
             if (e.key === "Enter")
               handleSend();
+
           }}
         />
 

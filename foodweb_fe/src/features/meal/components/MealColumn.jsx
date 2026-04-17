@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import MealItemCard from "./MealItemCard";
 import AddMealModal from "./AddMealModal";
 
+import { FaPlus } from "react-icons/fa";
+
 const MealColumn = ({
   title,
   mealType,
@@ -13,15 +15,29 @@ const MealColumn = ({
   const [openModal, setOpenModal] =
     useState(false);
 
-
   return (
 
     <div className="meal-column">
 
-      <h3>
+      {/* TITLE */}
+
+      <h3 className="meal-column-title">
         {title}
       </h3>
 
+      {/* EMPTY STATE */}
+
+      {items.length === 0 && (
+
+        <div className="empty-meal">
+
+          <FaPlus className="empty-icon" />
+
+          <p>No meals added</p>
+
+        </div>
+
+      )}
 
       {/* ITEMS */}
 
@@ -35,16 +51,15 @@ const MealColumn = ({
 
       ))}
 
-
       {/* ADD BUTTON */}
 
       <button
         className="add-meal-btn"
         onClick={() => setOpenModal(true)}
       >
-        <span>+</span> Add Food
+        <FaPlus />
+        Add Food
       </button>
-
 
       {/* MODAL */}
 

@@ -424,3 +424,13 @@ body.modal-open {
   text-decoration: none;
   margin-left: 5px;
 }
+
+.meal-item-link {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.meal-item-link:hover {
+  text-decoration: none !important;
+  color: inherit !important;
+}
