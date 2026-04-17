@@ -1,4 +1,4 @@
-package com.example.foodweb_be.respository;
+package com.example.foodweb_be.repository;
 
 import com.example.foodweb_be.entity.FoodIngredient;
 import com.example.foodweb_be.entity.FoodIngredientId;

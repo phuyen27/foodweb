@@ -62,7 +62,12 @@ const Navbar = () => {
             </NavLink>
 
           </li>
-          
+            <li className="nav-item">
+            <NavLink to="/ai-food" className={getNavClass} onClick={toggleMenu}>
+              AI Food Creator
+            </NavLink>
+
+          </li>
 
           {/* Mobile user or login */}
           {user ? (

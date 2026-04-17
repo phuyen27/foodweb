@@ -1,91 +1,136 @@
+/* =========================
+   CONTAINER
+========================= */
+
 .detail-container {
 
-  display: flex;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+
   padding: 30px;
+
   max-width: 1100px;
   margin: auto;
-  flex-wrap: wrap;
 
 }
 
-/* IMAGE */
+/* Responsive */
+
+@media (max-width: 900px) {
+
+  .detail-container {
+
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 20px;
+
+  }
+
+}
+
+/* =========================
+   IMAGE SECTION
+========================= */
 
 .image-box {
 
   position: relative;
-  flex: 1;
 
 }
 
 .detail-image {
 
   width: 100%;
-  border-radius: 15px;
+  height: 340px;
+
   object-fit: cover;
+
+  border-radius: 18px;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 
 }
 
 
 
-/* INFO */
+/* =========================
+   INFO SECTION
+========================= */
 
 .detail-info {
 
-  flex: 1.2;
+  display: flex;
+  flex-direction: column;
 
 }
+
+/* Title */
 
 .food-title {
 
   font-size: 32px;
-  margin-bottom: 10px;
+  font-weight: 700;
+
+  margin-bottom: 8px;
+
+  color: #2d3436;
 
 }
 
-/* DESCRIPTION */
+/* Description */
 
 .description {
 
-  margin-bottom: 20px;
   color: #555;
-  line-height: 1.6;
+
+  line-height: 1.7;
+
+  margin-bottom: 20px;
 
 }
 
-/* INFO LIST */
+/* =========================
+   INFO CHIPS
+========================= */
 
 .info-list {
 
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 20px;
+
+  gap: 12px;
+
+  margin-bottom: 25px;
 
 }
 
 .info-list p {
 
-  background: #f4f4f4;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 14px;
   display: flex;
   align-items: center;
   gap: 6px;
 
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  font-size: 14px;
+
+  background: #f3f4f6;
+
 }
 
-/* CATEGORY */
+/* Category */
 
 .category-tag {
 
-  background: #007bff !important;
+  background: #F97316 !important;
   color: white;
 
 }
 
-/* ICONS */
+/* Icons */
 
 .icon {
 
@@ -95,78 +140,176 @@
 
 .fire {
 
-  color: #ff5722;
+  color: #f97316;
 
 }
 
 .star {
 
-  color: #ffc107;
+  color: #facc15;
 
 }
 
-/* INGREDIENTS */
+/* =========================
+   INGREDIENTS CARD
+========================= */
 
 .ingredients-box {
 
-  margin-top: 25px;
+  margin-top: 10px;
+
+  padding: 20px;
+
+  border-radius: 16px;
+
+  background: #fff7ed;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 
 }
+
+/* Title */
 
 .ingredients-box h2 {
 
-  margin-bottom: 10px;
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 1.3rem;
+
+  margin-bottom: 14px;
+
+  color: #ea580c;
 
 }
+
+/* List */
 
 .ingredients-box ul {
 
-  padding-left: 20px;
+  list-style: none;
+
+  padding: 0;
 
 }
+
+/* Item */
 
 .ingredients-box li {
 
-  margin-bottom: 6px;
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 10px 12px;
+
+  margin-bottom: 8px;
+
+  border-radius: 10px;
+
+  background: white;
+
+  transition: 0.2s;
 
 }
 
-/* STEPS */
+.ingredients-box li:hover {
+
+  background: #fff1e6;
+
+  transform: translateX(4px);
+
+}
+
+/* Ingredient text */
+
+.ingredient-name {
+
+  font-weight: 500;
+
+  color: #2d3436;
+
+}
+
+.ingredient-qty {
+
+  font-size: 0.85rem;
+
+  color: #868e96;
+
+}
+
+/* =========================
+   STEPS CARD
+========================= */
 
 .steps-box {
 
   margin-top: 25px;
 
+  padding: 20px;
+
+  border-radius: 16px;
+
+  background: #f9fafb;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
 }
 
 .steps-box h2 {
 
-  margin-bottom: 10px;
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 1.3rem;
+
+  margin-bottom: 14px;
+
+  color: #ea580c;
 
 }
 
+/* Steps */
+
 .steps-box ol {
 
-  padding-left: 20px;
+  padding-left: 18px;
 
 }
 
 .steps-box li {
 
-  margin-bottom: 8px;
-  line-height: 1.5;
+  margin-bottom: 10px;
+
+  line-height: 1.6;
 
 }
 
-/* LOADING */
+/* =========================
+   LOADING
+========================= */
 
 .loading-page {
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   gap: 10px;
+
   font-size: 18px;
+
   height: 60vh;
 
 }
@@ -189,97 +332,16 @@
 
 }
 
-/* ERROR */
+/* =========================
+   ERROR
+========================= */
 
 .error {
 
   text-align: center;
+
   color: red;
+
   margin-top: 40px;
 
 }
-
-/* INGREDIENTS */
-
-.ingredients-box {
-
-  margin-top: 28px;
-
-  padding: 20px;
-
-  background: #fff7ed;
-
-  border-radius: 16px;
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-
-}
-
-.ingredients-box h2 {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  font-size: 1.3rem;
-
-  margin-bottom: 14px;
-
-  color: #ea580c;
-
-}
-
-.ingredients-box ul {
-
-  list-style: none;
-
-  padding: 0;
-
-}
-
-.ingredients-box li {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  padding: 10px 12px;
-
-  margin-bottom: 8px;
-
-  background: white;
-
-  border-radius: 10px;
-
-  transition: 0.2s;
-
-}
-
-.ingredients-box li:hover {
-
-  transform: translateX(4px);
-
-  background: #fff1e6;
-
-}
-
-.ingredient-name {
-
-  font-weight: 500;
-
-  color: #2d3436;
-
-}
-
-.ingredient-qty {
-
-  font-size: 0.85rem;
-
-  color: #868e96;
-
-}
-

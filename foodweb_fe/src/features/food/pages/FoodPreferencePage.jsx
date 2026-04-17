@@ -4,6 +4,7 @@ import { recommendByPreference } from "../foodSlice";
 import FoodCard from "../components/FoodCard";
 import { FaRobot, FaSpinner } from "react-icons/fa";
 import "./FoodPreferencePage.css";
+
 const FoodPreferencePage = () => {
   const dispatch = useDispatch();
 
@@ -17,7 +18,7 @@ const FoodPreferencePage = () => {
   const [messages, setMessages] = useState([
     {
       role: "bot",
-      text: "👋 Hi! Bạn muốn ăn gì hôm nay? (Italian / Asian / Dessert / Breakfast)"
+      text: "👋 Hi! What would you like to eat today? (All / Italian / Asian / Dessert / Breakfast)"
     }
   ]);
 
@@ -30,13 +31,12 @@ const FoodPreferencePage = () => {
     maxCalories: ""
   });
 
-  // UI STATES
   const [isTyping, setIsTyping] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const [streamText, setStreamText] = useState("");
 
   // =========================
-  // TYPEWRITER EFFECT
+  // TYPEWRITER
   // =========================
   const typeMessage = (text, callback) => {
     let i = 0;
@@ -45,7 +45,6 @@ const FoodPreferencePage = () => {
     const interval = setInterval(() => {
       temp += text[i];
       i++;
-
       setStreamText(temp);
 
       if (i === text.length) {
@@ -56,15 +55,18 @@ const FoodPreferencePage = () => {
   };
 
   // =========================
-  // HANDLE USER ANSWER
+  // HANDLE ANSWER
   // =========================
   const handleUserAnswer = (value) => {
     const newForm = { ...form };
 
-    if (step === 0) newForm.category = value;
-    if (step === 1) newForm.difficulty = value;
-    if (step === 2) newForm.maxCookingTime = value;
-    if (step === 3) newForm.maxCalories = value;
+    // 🔥 convert "All" → null
+    const finalValue = value === "All" ? null : value;
+
+    if (step === 0) newForm.category = finalValue;
+    if (step === 1) newForm.difficulty = finalValue;
+    if (step === 2) newForm.maxCookingTime = finalValue;
+    if (step === 3) newForm.maxCalories = finalValue;
 
     setForm(newForm);
 
@@ -87,19 +89,19 @@ const FoodPreferencePage = () => {
 
     switch (next) {
       case 1:
-        botText = "Bạn muốn mức độ khó như thế nào? (easy / medium / hard)";
+        botText = "What difficulty level do you prefer? (All / easy / medium / hard)";
         break;
 
       case 2:
-        botText = "Bạn có bao nhiêu thời gian để nấu? (15 / 30 / 60 phút)";
+        botText = "How much cooking time do you have? (All / 15 / 30 / 60 minutes)";
         break;
 
       case 3:
-        botText = "Bạn muốn tối đa bao nhiêu calories?";
+        botText = "What is your maximum calories? (All / 300 / 500 / 800)";
         break;
 
       case 4:
-        botText = "Đang tìm món phù hợp cho bạn... 🍜";
+        botText = "Finding the best recipes for you... 🍜";
         shouldSearch = true;
         break;
 
@@ -107,38 +109,25 @@ const FoodPreferencePage = () => {
         break;
     }
 
-    // typing indicator
     setIsTyping(true);
 
     setTimeout(() => {
       setIsTyping(false);
 
+      setStreaming(true);
+      setStreamText("");
+
+      typeMessage(botText, () => {
+        setMessages((prev) => [
+          ...prev,
+          { role: "bot", text: botText }
+        ]);
+
+        setStreaming(false);
+      });
+
       if (shouldSearch) {
-        setStreaming(true);
-        setStreamText("");
-
-        typeMessage(botText, () => {
-          setMessages((prev) => [
-            ...prev,
-            { role: "bot", text: botText }
-          ]);
-
-          setStreaming(false);
-        });
-
         dispatch(recommendByPreference(updatedForm));
-      } else {
-        setStreaming(true);
-        setStreamText("");
-
-        typeMessage(botText, () => {
-          setMessages((prev) => [
-            ...prev,
-            { role: "bot", text: botText }
-          ]);
-
-          setStreaming(false);
-        });
       }
     }, 700);
   };
@@ -147,10 +136,10 @@ const FoodPreferencePage = () => {
   // QUICK REPLIES
   // =========================
   const getReplies = () => {
-    if (step === 0) return ["Italian", "Asian", "Dessert", "Breakfast"];
-    if (step === 1) return ["easy", "medium", "hard"];
-    if (step === 2) return ["15", "30", "60"];
-    if (step === 3) return ["300", "500", "800"];
+    if (step === 0) return ["All", "Italian", "Asian", "Dessert", "Breakfast"];
+    if (step === 1) return ["All", "easy", "medium", "hard"];
+    if (step === 2) return ["All", "15", "30", "60"];
+    if (step === 3) return ["All", "300", "500", "800"];
     return [];
   };
 
@@ -165,38 +154,30 @@ const FoodPreferencePage = () => {
         <FaRobot /> Smart Food AI
       </h1>
 
-      {/* CHAT BOX */}
+      {/* CHAT */}
       <div className="chat-container">
 
         {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={`chat-bubble ${msg.role}`}
-          >
+          <div key={i} className={`chat-bubble ${msg.role}`}>
             {msg.text}
           </div>
         ))}
 
-        {/* STREAMING TEXT */}
         {streaming && (
           <div className="chat-bubble bot">
             {streamText}
           </div>
         )}
 
-        {/* TYPING INDICATOR */}
         {isTyping && (
           <div className="chat-bubble bot typing">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
           </div>
         )}
 
-        {/* LOADING FROM API */}
         {status === "loading" && (
           <div className="chat-bubble bot">
-            <FaSpinner className="spin" /> Đang tìm món...
+            <FaSpinner className="spin" /> Searching recipes...
           </div>
         )}
       </div>

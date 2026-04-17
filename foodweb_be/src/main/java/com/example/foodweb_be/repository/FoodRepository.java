@@ -1,4 +1,4 @@
-package com.example.foodweb_be.respository;
+package com.example.foodweb_be.repository;
 
 import com.example.foodweb_be.entity.Food;
 import com.example.foodweb_be.enums.Difficulty;

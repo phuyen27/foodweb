@@ -3,6 +3,8 @@ package com.example.foodweb_be.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class GeneratedFoodResponse {
@@ -15,4 +17,5 @@ public class GeneratedFoodResponse {
     private String description;
     private String steps;
     private String imageUrl;
+    private List<IngredientResponse> ingredients;
 }

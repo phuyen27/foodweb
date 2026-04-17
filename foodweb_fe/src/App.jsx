@@ -17,6 +17,8 @@ import PreferencePage from "./features/preference/pages/PreferencePage.jsx";
 import HistoryPage from "./features/history/pages/HistoryPage.jsx";
 import FoodRecommendPage from "./features/food/pages/FoodRecommendPage.jsx";
 import FoodPreferencePage from "./features/food/pages/FoodPreferencePage.jsx";
+import AIFoodPage from "./features/ai/pages/AIFoodPage.jsx";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -49,6 +51,7 @@ function App() {
             <Route path="/preferences" element={<PreferencePage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/recommendations" element={<FoodPreferencePage />} />
+              <Route path="/ai-food" element={<AIFoodPage />} />
           </Route>
         </Route>
 

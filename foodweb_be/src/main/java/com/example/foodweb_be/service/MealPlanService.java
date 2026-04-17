@@ -6,7 +6,7 @@ import com.example.foodweb_be.dto.MealPlanResponse;
 import com.example.foodweb_be.dto.UpdateMealItemRequest;
 import com.example.foodweb_be.entity.*;
 import com.example.foodweb_be.enums.ActionType;
-import com.example.foodweb_be.respository.*;
+import com.example.foodweb_be.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

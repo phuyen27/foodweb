@@ -2,8 +2,8 @@ package com.example.foodweb_be.service;
 
 import com.example.foodweb_be.entity.User;
 import com.example.foodweb_be.entity.UserPreference;
-import com.example.foodweb_be.respository.UserPreferenceRepository;
-import com.example.foodweb_be.respository.UserRepository;
+import com.example.foodweb_be.repository.UserPreferenceRepository;
+import com.example.foodweb_be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

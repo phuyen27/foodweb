@@ -3,8 +3,8 @@ package com.example.foodweb_be.service;
 import com.example.foodweb_be.entity.User;
 import com.example.foodweb_be.entity.UserFoodHistory;
 import com.example.foodweb_be.enums.ActionType;
-import com.example.foodweb_be.respository.UserFoodHistoryRepository;
-import com.example.foodweb_be.respository.UserRepository;
+import com.example.foodweb_be.repository.UserFoodHistoryRepository;
+import com.example.foodweb_be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,5 @@
 package com.example.foodweb_be.dto;
 
-import com.example.foodweb_be.entity.MealPlanItem;
-import com.example.foodweb_be.respository.MealPlanItemRepository;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

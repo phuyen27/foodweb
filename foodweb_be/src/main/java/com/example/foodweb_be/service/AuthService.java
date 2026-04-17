@@ -2,7 +2,7 @@ package com.example.foodweb_be.service;
 
 import com.example.foodweb_be.dto.*;
 import com.example.foodweb_be.entity.User;
-import com.example.foodweb_be.respository.UserRepository;
+import com.example.foodweb_be.repository.UserRepository;
 import com.example.foodweb_be.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

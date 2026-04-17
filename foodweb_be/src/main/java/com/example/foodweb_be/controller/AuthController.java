@@ -4,7 +4,7 @@ import com.example.foodweb_be.dto.ChangePasswordRequest;
 import com.example.foodweb_be.dto.LoginRequest;
 import com.example.foodweb_be.dto.RegisterRequest;
 import com.example.foodweb_be.dto.UpdateAuthRequest;
-import com.example.foodweb_be.respository.UserRepository;
+import com.example.foodweb_be.repository.UserRepository;
 import com.example.foodweb_be.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

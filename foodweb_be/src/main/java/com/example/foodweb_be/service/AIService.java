@@ -46,6 +46,8 @@ IMPORTANT RULES:
 - No extra text
 - All fields MUST exist
 - imageUrl MUST be empty string ""
+- MUST include ingredients array
+- Each ingredient must have name and quantity
 
 JSON FORMAT:
 
@@ -58,7 +60,13 @@ JSON FORMAT:
   "imageUrl": "",
   "difficulty": "easy|medium|hard",
   "description": "string",
-  "steps": "Step 1...\\nStep 2...\\nStep 3..."
+  "steps": "Step 1...\\nStep 2...\\nStep 3...",
+  "ingredients": [
+    {
+      "name": "string",
+      "quantity": "string"
+    }
+  ]
 }
 """.formatted(userMessage);
 

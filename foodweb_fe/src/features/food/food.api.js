@@ -21,3 +21,16 @@ export const getRecommendedFoodsApi = () =>
 export const recommendByPreferenceApi = (data) => {
     return axiosClient.post("/foods/recommend-by-preference", data);
 }
+
+export const generateFoodApi = (message) =>
+    axiosClient.post(
+        "/foods/ai-generate",
+        { message }
+    );
+
+export const saveGeneratedFoodApi =
+    (foodData) =>
+        axiosClient.post(
+            "/foods/save-generated-food",
+            foodData
+        );

@@ -2,7 +2,7 @@ package com.example.foodweb_be.service;
 
 import com.example.foodweb_be.dto.IngredientResponse;
 import com.example.foodweb_be.entity.FoodIngredient;
-import com.example.foodweb_be.respository.FoodIngredientRepository;
+import com.example.foodweb_be.repository.FoodIngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
